@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clube Desportivo ABC — Praia, Cabo Verde</title>
+<meta name="description" content="Website oficial do Clube Desportivo ABC — Andebol, Basquetebol e Voleibol em Praia, Cabo Verde.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   ROOT & RESET
+═══════════════════════════════════════ */
+:root{
+  --red:#D01111;--red-dk:#9B0C0C;--red-lt:#FF2828;
+  --white:#FFF;--black:#0A0A0A;--gold:#C9A227;--lgold:#FCF3CF;
+  --g100:#F2F2F2;--g200:#E0E0E0;--g400:#999;--g700:#444;--g900:#111;
+  --lblue:#D6E4F0;--silver:#808B96;
+  --fd:'Bebas Neue',sans-serif;--fc:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;
+  --tr:.28s cubic-bezier(.4,0,.2,1);
+  --sh:0 4px 24px rgba(0,0,0,.15);--shl:0 12px 48px rgba(0,0,0,.25);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--black);color:var(--white);overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+.page{display:none}.page.active{display:block}
+img{display:block}
+
+/* ═══════════════════════════════════════
+   LOADING SCREEN
+═══════════════════════════════════════ */
+#loadScreen{position:fixed;inset:0;background:var(--black);z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .5s ease}
+#loadScreen.hide{opacity:0;pointer-events:none}
+.load-logo{font-family:var(--fd);font-size:72px;color:var(--red);line-height:1;text-align:center}
+.load-sub{font-family:var(--fc);font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--g400)}
+.load-bar{width:200px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.load-bar-fill{height:100%;background:var(--red);border-radius:2px;animation:loadfill 1.8s ease forwards}
+@keyframes loadfill{from{width:0}to{width:100%}}
+
+/* ═══════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════ */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,.93);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 36px;height:68px;transition:var(--tr)}
+.nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none}
+.nav-logo-icon{width:44px;height:44px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:18px;color:#fff;flex-shrink:0;box-shadow:0 0 16px rgba(208,17,17,.5);transition:var(--tr)}
+.nav-logo:hover .nav-logo-icon{box-shadow:0 0 28px rgba(208,17,17,.8);transform:scale(1.05)}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1}
+.nav-cn{font-family:var(--fd);font-size:18px;color:var(--white);letter-spacing:2px}
+.nav-cs{font-family:var(--fc);font-size:9px;color:var(--red);letter-spacing:3px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links a,.nav-links>li>button{font-family:var(--fc);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g400);background:none;border:none;cursor:pointer;padding:7px 10px;border-radius:4px;transition:var(--tr);text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.nav-links a:hover,.nav-links>li>button:hover{color:var(--white);background:rgba(255,255,255,.06)}
+.nav-links a.active,.nav-links>li>button.active{color:var(--red)}
+.nav-dropdown{position:relative}
+.nav-ddm{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#0d0d0d;border:1px solid rgba(208,17,17,.3);border-radius:8px;min-width:165px;overflow:hidden;opacity:0;pointer-events:none;transition:var(--tr);z-index:200;box-shadow:var(--shl)}
+.nav-dropdown:hover .nav-ddm{opacity:1;pointer-events:all}
+.nav-ddm a{display:block;padding:10px 16px;font-family:var(--fc);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--g400);transition:var(--tr)}
+.nav-ddm a:hover{color:var(--white);background:rgba(208,17,17,.15)}
+.nav-admin{margin-left:6px;background:var(--red)!important;color:var(--white)!important;border-radius:6px!important;padding:7px 13px!important}
+.nav-admin:hover{background:var(--red-dk)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+.hamburger span{width:22px;height:2px;background:var(--white);border-radius:2px;transition:var(--tr)}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero{position:relative;height:100vh;min-height:650px;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(208,17,17,.22) 0%,transparent 58%),radial-gradient(ellipse at 15% 80%,rgba(208,17,17,.09) 0%,transparent 38%),linear-gradient(135deg,#0A0A0A,#140606)}
+.hero-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(208,17,17,.035) 60px,rgba(208,17,17,.035) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(208,17,17,.035) 60px,rgba(208,17,17,.035) 61px)}
+.hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:72px 40px 0}
+.hero-eyebrow{font-family:var(--fc);font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:10px;opacity:0;animation:fadeUp .7s .2s ease forwards}
+.hero-eyebrow::before{content:'';width:32px;height:2px;background:var(--red);display:block}
+.hero-h1{font-family:var(--fd);font-size:clamp(54px,8.5vw,118px);line-height:.9;color:var(--white);letter-spacing:2px;opacity:0;animation:fadeUp .7s .35s ease forwards}
+.hero-h1 .r{color:var(--red)}
+.hero-tagline{font-family:var(--fc);font-size:clamp(13px,1.8vw,20px);font-weight:300;color:var(--g400);letter-spacing:4px;text-transform:uppercase;margin:12px 0 36px;opacity:0;animation:fadeUp .7s .5s ease forwards}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s .65s ease forwards}
+.hero-kpis{position:absolute;right:40px;bottom:80px;display:flex;gap:32px}
+.hero-kpi-n{font-family:var(--fd);font-size:50px;color:var(--red);line-height:1}
+.hero-kpi-l{font-family:var(--fc);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--g400);margin-top:2px}
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;animation:bounce 2.2s infinite}
+.scroll-hint span{font-family:var(--fc);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--g400)}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════ */
+.btn{font-family:var(--fc);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;padding:13px 30px;border-radius:4px;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-flex;align-items:center;gap:7px}
+.btn-red{background:var(--red);color:var(--white)}
+.btn-red:hover{background:var(--red-lt);transform:translateY(-2px);box-shadow:0 8px 22px rgba(208,17,17,.4)}
+.btn-ghost{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.28)}
+.btn-ghost:hover{border-color:var(--white);transform:translateY(-2px)}
+.btn-sm{padding:7px 14px;font-size:10px}
+
+/* ═══════════════════════════════════════
+   SPORT CARDS
+═══════════════════════════════════════ */
+.sports-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(208,17,17,.12)}
+.sc{position:relative;height:360px;overflow:hidden;cursor:pointer;background:var(--g900)}
+.sc-bg{position:absolute;inset:0;transition:transform .6s ease}
+.sc:hover .sc-bg{transform:scale(1.06)}
+.sc-h .sc-bg{background:linear-gradient(135deg,#1a0808,#3d0f0f)}
+.sc-b .sc-bg{background:linear-gradient(135deg,#0a0a0a,#1a1008)}
+.sc-v .sc-bg{background:linear-gradient(135deg,#08101a,#0f2040)}
+.sc-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:88px;opacity:.07;transition:var(--tr)}
+.sc:hover .sc-icon{opacity:.14;transform:translate(-50%,-54%)}
+.sc-body{position:absolute;bottom:0;left:0;right:0;padding:34px 26px;background:linear-gradient(transparent,rgba(0,0,0,.94))}
+.sc-tag{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.sc-name{font-family:var(--fd);font-size:36px;color:var(--white);line-height:1;margin-bottom:10px}
+.sc-desc{font-size:12px;color:var(--g400);margin-bottom:14px;line-height:1.5}
+.sc-cta{font-family:var(--fc);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);display:inline-flex;align-items:center;gap:6px;transition:var(--tr);background:none;border:none;cursor:pointer;padding:0}
+.sc-cta:hover{gap:12px}
+
+/* ═══════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════ */
+.sec{padding:88px 40px;max-width:1200px;margin:0 auto}
+.sec-full{padding:88px 40px}
+.sec-eyebrow{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+.sec-eyebrow::before{content:'';width:20px;height:2px;background:var(--red);display:block}
+.sec-h{font-family:var(--fd);font-size:clamp(34px,5vw,66px);line-height:.95;color:var(--white);margin-bottom:14px;letter-spacing:1px}
+.sec-p{font-size:15px;line-height:1.72;color:var(--g400);max-width:520px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(208,17,17,.45),transparent)}
+
+/* ═══════════════════════════════════════
+   NEWS
+═══════════════════════════════════════ */
+.news-bg{background:rgba(255,255,255,.018)}
+.news-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;gap:16px;flex-wrap:wrap}
+.news-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2px;background:rgba(208,17,17,.07)}
+.nc{background:#0e0e0e;overflow:hidden;transition:var(--tr);cursor:pointer}
+.nc:hover{background:#141414}
+.nc-img{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a1a,#1e1e1e);position:relative;overflow:hidden}
+.nc-img img{width:100%;height:100%;object-fit:cover;opacity:.72;transition:var(--tr)}
+.nc:hover .nc-img img{opacity:.9;transform:scale(1.04)}
+.nc-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:42px;opacity:.18}
+.nc-body{padding:20px}
+.nc-src{font-family:var(--fc);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.nc-title{font-family:var(--fc);font-size:16px;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:8px}
+.nc.feat .nc-title{font-size:24px}
+.nc-ex{font-size:12px;color:var(--g400);line-height:1.6}
+.nc-date{font-family:var(--fc);font-size:9px;color:var(--g400);letter-spacing:1px;margin-top:10px}
+
+/* ═══════════════════════════════════════
+   TITLES BAND
+═══════════════════════════════════════ */
+.titles-band{background:linear-gradient(135deg,var(--red-dk),#3a0000);padding:70px 0;overflow:hidden;position:relative}
+.titles-band::before{content:'ABC';position:absolute;font-family:var(--fd);font-size:260px;color:rgba(255,255,255,.025);top:50%;right:-40px;transform:translateY(-50%);pointer-events:none}
+.titles-inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.titles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:18px;margin-top:40px}
+.tc{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:22px 18px;text-align:center;transition:var(--tr)}
+.tc:hover{background:rgba(255,255,255,.13);transform:translateY(-4px)}
+.tc-icon{font-size:30px;margin-bottom:10px}
+.tc-n{font-family:var(--fd);font-size:42px;color:var(--gold);line-height:1}
+.tc-name{font-family:var(--fc);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:4px}
+.tc-sport{font-size:11px;color:rgba(255,255,255,.38);margin-top:3px}
+
+/* ═══════════════════════════════════════
+   GALLERY
+═══════════════════════════════════════ */
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+.gi{position:relative;overflow:hidden;cursor:pointer;background:#1a1a1a}
+.gi:first-child{grid-column:span 2;grid-row:span 2}
+.gi img{width:100%;height:100%;object-fit:cover;aspect-ratio:1;transition:transform .5s ease;opacity:.8}
+.gi:first-child img{aspect-ratio:auto}
+.gi:hover img{transform:scale(1.06);opacity:1}
+.gi-ov{position:absolute;inset:0;background:rgba(208,17,17,0);transition:var(--tr);display:flex;align-items:center;justify-content:center}
+.gi:hover .gi-ov{background:rgba(208,17,17,.25)}
+.gi-ov-icon{font-size:28px;opacity:0;transform:scale(.5);transition:var(--tr)}
+.gi:hover .gi-ov-icon{opacity:1;transform:scale(1)}
+
+/* ═══════════════════════════════════════
+   SPORT HERO & TABS
+═══════════════════════════════════════ */
+.sp-hero{height:44vh;min-height:360px;display:flex;align-items:flex-end;position:relative;overflow:hidden;padding:52px 40px}
+.sp-hero-bg{position:absolute;inset:0;filter:brightness(.4)}
+.sp-hero-h{background:linear-gradient(135deg,#1a0808,#3d0f0f)}
+.sp-hero-b{background:linear-gradient(135deg,#1a1208,#3d2f0f)}
+.sp-hero-v{background:linear-gradient(135deg,#08101a,#0f2040)}
+.sp-hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%}
+.sp-hero-icon{font-size:68px;margin-bottom:12px;display:block}
+.sp-hero-title{font-family:var(--fd);font-size:clamp(52px,7vw,90px);color:var(--white);line-height:.92}
+.sp-hero-sub{font-family:var(--fc);font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-top:6px}
+.sp-tabs{background:#111;border-bottom:1px solid rgba(255,255,255,.055);position:sticky;top:68px;z-index:100}
+.sp-tabs-inner{max-width:1200px;margin:0 auto;padding:0 40px;display:flex;overflow-x:auto}
+.sp-tab{font-family:var(--fc);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g400);background:none;border:none;padding:17px 20px;cursor:pointer;border-bottom:3px solid transparent;transition:var(--tr);white-space:nowrap}
+.sp-tab:hover{color:var(--white)}.sp-tab.active{color:var(--red);border-bottom-color:var(--red)}
+.tab-pane{display:none;padding:52px 0 72px}.tab-pane.active{display:block}
+.sp-body{max-width:1200px;margin:0 auto;padding:0 40px}
+
+/* ═══════════════════════════════════════
+   ROSTER
+═══════════════════════════════════════ */
+.roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:13px;margin-top:32px}
+.pc{background:#111;border:1px solid rgba(255,255,255,.055);border-radius:8px;overflow:hidden;transition:var(--tr)}
+.pc:hover{transform:translateY(-3px);border-color:rgba(208,17,17,.32);box-shadow:0 8px 26px rgba(208,17,17,.1)}
+.pc-img{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,#1a1a1a,#202020);position:relative;overflow:hidden}
+.pc-img img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .4s ease}
+.pc:hover .pc-img img{transform:scale(1.04)}
+.pc-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:58px;opacity:.18}
+.pc-num{position:absolute;top:9px;right:9px;font-family:var(--fd);font-size:24px;color:var(--red);background:rgba(0,0,0,.72);padding:1px 7px;border-radius:4px}
+.pc-body{padding:13px}
+.pc-name{font-family:var(--fc);font-size:14px;font-weight:700;color:var(--white);margin-bottom:3px;line-height:1.2}
+.pc-pos{font-family:var(--fc);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red)}
+.pc-stats{display:flex;gap:8px;margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.055)}
+.pc-stat-l{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--g400)}
+
+/* ═══════════════════════════════════════
+   COACHES
+═══════════════════════════════════════ */
+.coaches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(224px,1fr));gap:16px;margin-top:32px}
+.cc{background:#111;border:1px solid rgba(255,255,255,.055);border-radius:8px;padding:22px;display:flex;align-items:center;gap:16px;transition:var(--tr)}
+.cc:hover{border-color:rgba(208,17,17,.32)}
+.cc-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--red-dk),var(--red));display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:24px;color:#fff;flex-shrink:0;overflow:hidden}
+.cc-av img{width:100%;height:100%;object-fit:cover}
+.cc-name{font-family:var(--fc);font-size:16px;font-weight:700;color:var(--white)}
+.cc-role{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-top:3px}
+.cc-info{font-size:11px;color:var(--g400);margin-top:5px;line-height:1.5}
+
+/* ═══════════════════════════════════════
+   TABLE
+═══════════════════════════════════════ */
+.tbl{width:100%;border-collapse:collapse;margin-top:26px}
+.tbl th{font-family:var(--fc);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g400);text-align:left;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.055)}
+.tbl td{padding:13px;border-bottom:1px solid rgba(255,255,255,.035);font-size:13px;color:var(--g400);vertical-align:middle}
+.tbl tr:hover td{background:rgba(255,255,255,.02);color:var(--white)}
+.mt{font-family:var(--fc);font-size:14px;font-weight:700;color:var(--white)}
+.mvs{font-size:10px;color:var(--red);margin:0 6px}
+.rb{display:inline-flex;align-items:center;padding:3px 9px;border-radius:4px;font-family:var(--fc);font-size:12px;font-weight:700;letter-spacing:1px}
+.rw{background:rgba(34,197,94,.13);color:#22C55E}.rl{background:rgba(239,68,68,.13);color:#EF4444}
+.rd{background:rgba(156,163,175,.13);color:#9CA3AF}.rp{background:rgba(208,17,17,.1);color:var(--red)}
+.sc-num{font-family:var(--fd);font-size:19px;color:var(--white)}
+
+/* ═══════════════════════════════════════
+   STATS
+═══════════════════════════════════════ */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:13px;margin-top:32px}
+.stc{background:#111;border:1px solid rgba(255,255,255,.055);border-radius:8px;padding:22px 18px;text-align:center;position:relative;overflow:hidden}
+.stc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--red)}
+.stc-val{font-family:var(--fd);font-size:50px;color:var(--white);line-height:1}
+.stc-lbl{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g400);margin-top:6px}
+.stc-ch{font-size:11px;margin-top:6px}.up{color:#22C55E}.dn{color:#EF4444}
+
+/* ═══════════════════════════════════════
+   INSTITUTION
+═══════════════════════════════════════ */
+.inst-hero{position:relative;padding:150px 40px 72px;overflow:hidden;background:#070707}
+.inst-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 28% 62%,rgba(208,17,17,.14),transparent 60%)}
+.inst-decor{position:absolute;right:-70px;top:50%;transform:translateY(-50%);font-family:var(--fd);font-size:300px;color:rgba(255,255,255,.022);line-height:1;pointer-events:none}
+.inst-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2}
+.inst-lead{font-family:var(--fc);font-size:clamp(17px,2.6vw,26px);font-weight:600;color:rgba(255,255,255,.82);line-height:1.52;max-width:700px;margin-top:20px}
+.mvv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(208,17,17,.1)}
+.mvv-card{background:#0c0c0c;padding:46px 32px;transition:var(--tr)}
+.mvv-card:hover{background:#121212}
+.mvv-icon{font-size:42px;margin-bottom:16px}
+.mvv-title{font-family:var(--fd);font-size:34px;color:var(--red);margin-bottom:12px;line-height:1}
+.mvv-text{font-size:14px;color:rgba(255,255,255,.6);line-height:1.76}
+.val-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:32px}
+.val-card{background:#111;border:1px solid rgba(255,255,255,.055);border-radius:8px;padding:22px;text-align:center;transition:var(--tr)}
+.val-card:hover{border-color:rgba(208,17,17,.32);transform:translateY(-3px)}
+.val-icon{font-size:34px;margin-bottom:10px}
+.val-title{font-family:var(--fc);font-size:13px;font-weight:700;color:var(--white);letter-spacing:1px;margin-bottom:7px}
+.val-desc{font-size:12px;color:var(--g400);line-height:1.58}
+.milestone-section{background:#070707;padding:72px 0}
+.milestone-inner{max-width:1200px;margin:0 auto;padding:0 40px}
+.timeline{position:relative;padding-left:40px;margin-top:40px}
+.timeline::before{content:'';position:absolute;left:14px;top:7px;bottom:7px;width:2px;background:linear-gradient(180deg,var(--red),rgba(208,17,17,.08))}
+.tl-item{position:relative;margin-bottom:36px;padding-left:20px}
+.tl-item::before{content:'';position:absolute;left:-26px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 12px rgba(208,17,17,.6)}
+.tl-year{font-family:var(--fd);font-size:36px;color:var(--red);line-height:1}
+.tl-title{font-family:var(--fc);font-size:18px;font-weight:700;color:var(--white);margin-top:3px}
+.tl-desc{font-size:13px;color:var(--g400);margin-top:5px;line-height:1.65;max-width:660px}
+
+/* ═══════════════════════════════════════
+   ORGANS
+═══════════════════════════════════════ */
+.organs-hero{position:relative;padding:150px 40px 72px;overflow:hidden;background:#050505}
+.organs-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 72% 38%,rgba(208,17,17,.16),transparent 58%)}
+.organs-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2}
+.org-body{max-width:1200px;margin:0 auto;padding:0 40px 72px}
+.org-section{margin-bottom:56px}
+.org-sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;flex-wrap:wrap;gap:10px;padding-bottom:14px;border-bottom:1px solid rgba(208,17,17,.18)}
+.org-sec-title{font-family:var(--fd);font-size:46px;color:var(--white);line-height:1}
+.org-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.orc{background:#111;border:1px solid rgba(255,255,255,.055);border-radius:10px;overflow:hidden;transition:var(--tr)}
+.orc:hover{border-color:rgba(208,17,17,.35);transform:translateY(-4px);box-shadow:0 10px 32px rgba(208,17,17,.1)}
+.orc-pres{border-color:rgba(201,162,39,.28)}
+.orc-pres:hover{border-color:var(--gold);box-shadow:0 10px 32px rgba(201,162,39,.12)}
+.orc-photo{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#1a1a1a,#1e1e1e);overflow:hidden;position:relative}
+.orc-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .4s ease}
+.orc:hover .orc-photo img{transform:scale(1.05)}
+.orc-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:68px;opacity:.18}
+.orc-badge{position:absolute;top:9px;left:9px;font-family:var(--fc);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 9px;border-radius:4px}
+.bp{background:rgba(201,162,39,.88);color:#000}.bv{background:rgba(208,17,17,.88);color:#fff}.bd{background:rgba(255,255,255,.14);color:#fff}
+.orc-body{padding:16px}
+.orc-name{font-family:var(--fc);font-size:16px;font-weight:700;color:var(--white);margin-bottom:3px}
+.orc-role{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red)}
+.orc-pres .orc-role{color:var(--gold)}
+.orc-contact{font-size:11px;color:var(--g400);margin-top:7px}
+.orc-bio{font-size:11px;color:var(--g400);margin-top:5px;line-height:1.52}
+
+/* ═══════════════════════════════════════
+   INTERNATIONAL
+═══════════════════════════════════════ */
+.intl-tl{position:relative;padding-left:36px;margin-top:32px}
+.intl-tl::before{content:'';position:absolute;left:13px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--red),transparent)}
+.intl-item{position:relative;margin-bottom:32px;padding-left:16px}
+.intl-item::before{content:'';position:absolute;left:-23px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 10px rgba(208,17,17,.55)}
+.intl-year{font-family:var(--fd);font-size:36px;color:var(--red);line-height:1}
+.intl-title{font-family:var(--fc);font-size:18px;font-weight:700;color:var(--white);margin-top:3px}
+.intl-meta{font-family:var(--fc);font-size:10px;letter-spacing:2px;color:var(--red);margin:3px 0}
+.intl-desc{font-size:13px;color:var(--g400);margin-top:4px;line-height:1.62}
+.intl-result{display:inline-block;margin-top:8px;font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border-radius:4px;background:rgba(201,162,39,.14);color:var(--gold);border:1px solid rgba(201,162,39,.28)}
+
+/* ═══════════════════════════════════════
+   DASHBOARD
+═══════════════════════════════════════ */
+.dash-sec{background:#060606;border-top:1px solid rgba(255,255,255,.045)}
+.dash-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:12px}
+.dash-status{display:flex;align-items:center;gap:6px;font-family:var(--fc);font-size:10px;letter-spacing:1px;color:var(--g400)}
+.sdot{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:spulse 2s infinite}
+@keyframes spulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 6px rgba(34,197,94,0)}}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px}
+.dash-card{background:#111;border:1px solid rgba(255,255,255,.055);border-radius:8px;padding:20px}
+.dash-title{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g400);margin-bottom:16px}
+.dash-big{font-family:var(--fd);font-size:50px;color:var(--white);line-height:1}
+.dash-sub{font-size:11px;color:var(--g400);margin-top:6px}
+.bar-chart{height:108px;display:flex;align-items:flex-end;gap:5px;margin-bottom:20px}
+.bar{flex:1;border-radius:3px 3px 0 0;position:relative;cursor:pointer;transition:var(--tr);min-height:7px}
+.bar:hover{filter:brightness(1.3)}
+.bar-lbl{position:absolute;bottom:-17px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--g400);font-family:var(--fc);white-space:nowrap}
+.upload-zone{border:2px dashed rgba(208,17,17,.38);border-radius:8px;padding:26px;text-align:center;transition:var(--tr);cursor:pointer}
+.upload-zone:hover{border-color:var(--red);background:rgba(208,17,17,.045)}
+
+/* ═══════════════════════════════════════
+   ADMIN PANEL
+═══════════════════════════════════════ */
+.adm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+.adm-overlay.open{display:flex}
+.adm-panel{background:#0f0f0f;border:1px solid rgba(208,17,17,.28);border-radius:14px;width:94%;max-width:1040px;max-height:92vh;overflow-y:auto;padding:34px;position:relative}
+.adm-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.07);border:none;color:var(--white);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.adm-close:hover{background:var(--red)}
+.adm-title{font-family:var(--fd);font-size:36px;color:var(--white);margin-bottom:5px}
+.adm-sub{font-family:var(--fc);font-size:12px;color:var(--g400);margin-bottom:28px;letter-spacing:1px}
+/* login */
+.adm-login-wrap{text-align:center;padding:32px 0}
+.adm-login-icon{font-size:56px;margin-bottom:16px}
+/* nav */
+.adm-nav{display:flex;gap:4px;margin-bottom:24px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.055);padding-bottom:12px}
+.adm-btn{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:rgba(255,255,255,.05);color:var(--g400);border:1px solid rgba(255,255,255,.07);padding:6px 11px;border-radius:6px;cursor:pointer;transition:var(--tr)}
+.adm-btn:hover,.adm-btn.active{background:var(--red);color:var(--white);border-color:var(--red)}
+.adm-sec{display:none}.adm-sec.active{display:block}
+/* forms */
+.fg{margin-bottom:16px;text-align:left}
+.fl{display:block;font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g400);margin-bottom:6px}
+.fi{width:100%;background:#181818;border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:11px 13px;color:var(--white);font-family:var(--fb);font-size:13px;transition:var(--tr);outline:none}
+.fi:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(208,17,17,.11)}
+.fsel{width:100%;background:#181818;border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:11px 13px;color:var(--white);font-family:var(--fb);font-size:13px;outline:none;cursor:pointer}
+.fsel:focus{border-color:var(--red)}
+.fta{width:100%;background:#181818;border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:11px 13px;color:var(--white);font-family:var(--fb);font-size:13px;transition:var(--tr);outline:none;resize:vertical;min-height:82px}
+.fta:focus{border-color:var(--red)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+/* photo upload */
+.puw{border:2px dashed rgba(208,17,17,.32);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:var(--tr);position:relative}
+.puw:hover{border-color:var(--red);background:rgba(208,17,17,.04)}
+.puw input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.pp-wrap{display:flex;gap:10px;align-items:center;margin-top:9px;flex-wrap:wrap}
+.pp{width:66px;height:66px;border-radius:6px;object-fit:cover;border:2px solid rgba(208,17,17,.38)}
+.pp-ph{width:66px;height:66px;background:#181818;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:26px;border:2px dashed rgba(255,255,255,.09);color:rgba(255,255,255,.28)}
+/* admin table */
+.at{width:100%;border-collapse:collapse;margin-top:12px}
+.at th{font-family:var(--fc);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g400);text-align:left;padding:8px 10px;background:#181818;border-bottom:1px solid rgba(255,255,255,.055)}
+.at td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.035);font-size:11px;color:var(--g400)}
+.at tr:hover td{background:rgba(255,255,255,.02);color:var(--white)}
+.ab{display:flex;gap:5px}
+.be{background:rgba(59,130,246,.13);color:#60A5FA;border:1px solid rgba(59,130,246,.28);padding:2px 8px;border-radius:4px;cursor:pointer;font-size:9px;font-family:var(--fc);font-weight:700;letter-spacing:1px;transition:var(--tr)}
+.be:hover{background:rgba(59,130,246,.22)}
+.bdel{background:rgba(239,68,68,.13);color:#EF4444;border:1px solid rgba(239,68,68,.28);padding:2px 8px;border-radius:4px;cursor:pointer;font-size:9px;font-family:var(--fc);font-weight:700;letter-spacing:1px;transition:var(--tr)}
+.bdel:hover{background:rgba(239,68,68,.22)}
+/* loader inside panel */
+.adm-loading{text-align:center;padding:48px 0;font-family:var(--fc);font-size:12px;color:var(--g400);letter-spacing:2px}
+
+/* ═══════════════════════════════════════
+   EDIT MODAL
+═══════════════════════════════════════ */
+.em-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:3000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.em-overlay.open{display:flex}
+.em-box{background:#111;border:1px solid rgba(208,17,17,.28);border-radius:12px;width:92%;max-width:640px;max-height:88vh;overflow-y:auto;padding:28px;position:relative}
+.em-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.07);border:none;color:var(--white);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.em-close:hover{background:var(--red)}
+.em-title{font-family:var(--fd);font-size:28px;color:var(--white);margin-bottom:18px}
+
+/* ═══════════════════════════════════════
+   TOAST
+═══════════════════════════════════════ */
+.toast{position:fixed;bottom:26px;right:26px;background:#111;border:1px solid var(--red);border-radius:8px;padding:12px 20px;color:var(--white);font-family:var(--fc);font-size:12px;font-weight:700;z-index:9999;opacity:0;transform:translateY(16px);transition:var(--tr);pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer{background:#050505;border-top:1px solid rgba(255,255,255,.045);padding:52px 40px 32px}
+.ft-inner{max-width:1200px;margin:0 auto}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.055)}
+.ft-cn{font-family:var(--fd);font-size:28px;color:var(--white);letter-spacing:2px}
+.ft-tg{font-family:var(--fc);font-size:10px;color:var(--red);letter-spacing:3px;text-transform:uppercase;margin-top:3px}
+.ft-desc{font-size:12px;color:var(--g400);line-height:1.7;margin-top:12px}
+.ft-social{display:flex;gap:9px;margin-top:18px}
+.soc{width:36px;height:36px;border-radius:7px;background:rgba(255,255,255,.048);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--tr);color:var(--g400);font-size:13px;text-decoration:none}
+.soc:hover{background:var(--red);border-color:var(--red);color:var(--white)}
+.ft-col-title{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:16px}
+.ft-links{list-style:none}
+.ft-links li{margin-bottom:8px}
+.ft-links a{font-size:12px;color:var(--g400);text-decoration:none;transition:var(--tr);cursor:pointer}
+.ft-links a:hover{color:var(--red)}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:26px;flex-wrap:wrap;gap:12px}
+.ft-copy{font-family:var(--fc);font-size:10px;color:var(--g400);letter-spacing:1px}
+.ft-al{font-family:var(--fc);font-size:10px;color:var(--g400);cursor:pointer;transition:var(--tr);letter-spacing:1px}
+.ft-al:hover{color:var(--red)}
+
+/* ═══════════════════════════════════════
+   TAGS
+═══════════════════════════════════════ */
+.tag-r{display:inline-flex;align-items:center;padding:2px 9px;background:rgba(208,17,17,.13);border:1px solid rgba(208,17,17,.26);border-radius:4px;font-family:var(--fc);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red)}
+
+/* ═══════════════════════════════════════
+   MEDIA IMAGE ADMIN GRID
+═══════════════════════════════════════ */
+.mig{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;margin-top:12px}
+.mi{position:relative;aspect-ratio:1;background:#181818;border-radius:6px;overflow:hidden}
+.mi img{width:100%;height:100%;object-fit:cover}
+.mi-del{position:absolute;top:3px;right:3px;background:var(--red);border:none;color:#fff;width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--tr)}
+.mi:hover .mi-del{opacity:1}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:1024px){
+  .news-grid{grid-template-columns:1fr 1fr}.nc.feat{grid-column:span 2}
+  .sports-row{grid-template-columns:1fr}.sc{height:270px}
+  .dash-grid{grid-template-columns:1fr 1fr}.ft-top{grid-template-columns:1fr 1fr}
+  .mvv-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  #navbar{padding:0 16px}.nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:var(--black);border-bottom:1px solid var(--red);padding:16px;z-index:999}
+  .hamburger{display:flex}
+  .sec{padding:54px 20px}.sec-full{padding:54px 20px}
+  .news-grid{grid-template-columns:1fr}.nc.feat{grid-column:span 1}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}.gi:first-child{grid-column:span 2}
+  .dash-grid{grid-template-columns:1fr}.ft-top{grid-template-columns:1fr;gap:26px}
+  .g2,.g3{grid-template-columns:1fr}
+  .sp-tabs-inner{overflow-x:auto}
+  .hero-kpis{display:none}
+  .inst-hero,.organs-hero{padding:110px 20px 52px}
+  .org-body{padding:0 20px 52px}
+  .sp-body{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loadScreen">
+  <div class="load-logo">CD<br>ABC</div>
+  <div class="load-sub">Clube Desportivo ABC · Praia</div>
+  <div class="load-bar"><div class="load-bar-fill"></div></div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="go('home')">
+    <div class="nav-logo-icon">ABC</div>
+    <div class="nav-logo-text"><span class="nav-cn">CD ABC</span><span class="nav-cs">Praia · Cabo Verde</span></div>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="go('home')" id="nav-home" class="active">Início</a></li>
+    <li><a onclick="go('institution')" id="nav-institution">Instituição</a></li>
+    <li><a onclick="go('organs')" id="nav-organs">Órgãos Eleitos</a></li>
+    <li class="nav-dropdown">
+      <button id="nav-sports">Modalidades ▾</button>
+      <div class="nav-ddm">
+        <a onclick="goSport('handball')">🤾 Andebol</a>
+        <a onclick="goSport('basketball')">🏀 Basquetebol</a>
+        <a onclick="goSport('volleyball')">🏐 Voleibol</a>
+      </div>
+    </li>
+    <li><a onclick="go('titles')" id="nav-titles">Títulos</a></li>
+    <li><a onclick="go('international')" id="nav-international">Internacional</a></li>
+    <li><a onclick="go('gallery')" id="nav-gallery">Galeria</a></li>
+    <li><a onclick="go('dashboard')" id="nav-dashboard">Dashboard</a></li>
+    <li><button class="nav-admin" onclick="openAdmin()">⚙ Admin</button></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div><div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Praia · Santiago · Cabo Verde</div>
+      <h1 class="hero-h1">CLUBE<br><span class="r">DESPORTIVO</span><br>ABC</h1>
+      <p class="hero-tagline">Andebol · Basquetebol · Voleibol</p>
+      <div class="hero-btns">
+        <button class="btn btn-red" onclick="go('institution')">Conhecer o Clube ›</button>
+        <button class="btn btn-ghost" onclick="go('titles')">Palmarés</button>
+      </div>
+    </div>
+    <div class="hero-kpis">
+      <div><div class="hero-kpi-n" id="kpi-titles">—</div><div class="hero-kpi-l">Títulos</div></div>
+      <div><div class="hero-kpi-n">3</div><div class="hero-kpi-l">Modalidades</div></div>
+      <div><div class="hero-kpi-n" id="kpi-players">—</div><div class="hero-kpi-l">Atletas</div></div>
+    </div>
+    <div class="scroll-hint"><span>scroll</span><svg width="17" height="26" viewBox="0 0 20 30" fill="none"><rect x="1" y="1" width="18" height="28" rx="9" stroke="#666" stroke-width="1.5"/><circle cx="10" cy="8" r="3" fill="#D01111"/></svg></div>
+  </section>
+  <!-- Sport Cards -->
+  <div class="sports-row">
+    <div class="sc sc-h" onclick="goSport('handball')"><div class="sc-bg"></div><div class="sc-icon">🤾</div><div class="sc-body"><div class="sc-tag">Modalidade</div><div class="sc-name">ANDEBOL</div><div class="sc-desc">Equipa de andebol do CD ABC em competição nacional.</div><button class="sc-cta">Ver Equipa →</button></div></div>
+    <div class="sc sc-b" onclick="goSport('basketball')"><div class="sc-bg"></div><div class="sc-icon">🏀</div><div class="sc-body"><div class="sc-tag">Modalidade</div><div class="sc-name">BASQUETEBOL</div><div class="sc-desc">Representando Praia e Santiago em todas as competições.</div><button class="sc-cta">Ver Equipa →</button></div></div>
+    <div class="sc sc-v" onclick="goSport('volleyball')"><div class="sc-bg"></div><div class="sc-icon">🏐</div><div class="sc-body"><div class="sc-tag">Modalidade</div><div class="sc-name">VOLEIBOL</div><div class="sc-desc">Forte presença nas competições nacionais de voleibol.</div><button class="sc-cta">Ver Equipa →</button></div></div>
+  </div>
+  <!-- News -->
+  <div class="news-bg"><div class="sec"><div class="news-head"><div><div class="sec-eyebrow">Atualidade</div><h2 class="sec-h">NOTÍCIAS</h2></div><button class="btn btn-ghost btn-sm" onclick="openAdmin()">+ Notícia</button></div><div class="news-grid" id="newsGrid"><div class="adm-loading">A carregar notícias…</div></div></div></div>
+  <!-- Titles band -->
+  <div class="titles-band"><div class="titles-inner"><div class="sec-eyebrow" style="color:rgba(255,255,255,.5)">Palmarés</div><h2 class="sec-h">TÍTULOS E CONQUISTAS</h2><div class="titles-grid" id="titlesHome"></div></div></div>
+  <!-- Gallery preview -->
+  <div class="sec"><div class="news-head"><div><div class="sec-eyebrow">Momentos</div><h2 class="sec-h">GALERIA</h2></div><button class="btn btn-ghost btn-sm" onclick="go('gallery')">Ver Tudo →</button></div><div class="gallery-grid" id="homeGallery"></div></div>
+</div>
+
+<!-- ══ INSTITUTION ══ -->
+<div class="page" id="page-institution">
+  <div class="inst-hero"><div class="inst-decor">ABC</div><div class="inst-inner"><div class="sec-eyebrow">Sobre o Clube</div><h1 class="sec-h" style="font-size:clamp(48px,8vw,96px)">CLUBE DESPORTIVO ABC</h1><div class="inst-lead" id="instLead">A carregar…</div></div></div>
+  <div class="mvv-grid" id="mvvGrid"></div>
+  <div class="sec"><div class="sec-eyebrow">Identidade</div><h2 class="sec-h">VALORES</h2><div class="val-grid" id="valGrid"></div></div>
+  <div class="milestone-section"><div class="milestone-inner"><div class="sec-eyebrow">História</div><h2 class="sec-h">MARCOS HISTÓRICOS</h2><div class="timeline" id="instTimeline"></div></div></div>
+</div>
+
+<!-- ══ ORGANS ══ -->
+<div class="page" id="page-organs">
+  <div class="organs-hero"><div class="organs-inner"><div class="sec-eyebrow">Estrutura</div><h1 class="sec-h" style="font-size:clamp(42px,7vw,86px)">ÓRGÃOS<br><span style="color:var(--red)">ELEITOS</span></h1><p class="sec-p" id="orgIntroEl">A carregar…</p></div></div>
+  <div class="org-body">
+    <div class="org-section"><div class="org-sec-head"><div><div class="sec-eyebrow">Gestão</div><div class="org-sec-title">DIRECÇÃO</div></div><div id="orgMandateEl" style="font-family:var(--fc);font-size:12px;color:var(--g400);letter-spacing:1px"></div></div><div class="org-grid" id="orgDirGrid"><div class="adm-loading">A carregar…</div></div></div>
+    <div class="org-section"><div class="org-sec-head"><div><div class="sec-eyebrow">Deliberativo</div><div class="org-sec-title">ASSEMBLEIA GERAL</div></div></div><div class="org-grid" id="orgAGGrid"><div class="adm-loading">A carregar…</div></div></div>
+    <div class="org-section"><div class="org-sec-head"><div><div class="sec-eyebrow">Fiscalização</div><div class="org-sec-title">CONSELHO FISCAL</div></div></div><div class="org-grid" id="orgCFGrid"><div class="adm-loading">A carregar…</div></div></div>
+  </div>
+</div>
+
+<!-- ══ SPORT PAGES ══ -->
+<div class="page" id="page-handball">
+  <div class="sp-hero"><div class="sp-hero-bg sp-hero-h"></div><div class="sp-hero-inner" style="padding-top:68px"><span class="sp-hero-icon">🤾</span><h1 class="sp-hero-title">ANDEBOL</h1><p class="sp-hero-sub">CD ABC · Temporada 2025/2026</p></div></div>
+  <div class="sp-tabs"><div class="sp-tabs-inner" id="handball-tabs">
+    <button class="sp-tab active" onclick="switchTab('handball','roster',this)">Plantel</button>
+    <button class="sp-tab" onclick="switchTab('handball','coaches',this)">Treinadores</button>
+    <button class="sp-tab" onclick="switchTab('handball','calendar',this)">Calendário</button>
+    <button class="sp-tab" onclick="switchTab('handball','results',this)">Resultados</button>
+    <button class="sp-tab" onclick="switchTab('handball','stats',this)">Estatísticas</button>
+  </div></div>
+  <div class="sp-body">
+    <div class="tab-pane active" id="handball-roster"><div class="sec-eyebrow" style="padding-top:32px">Plantel 2025/2026</div><div class="roster-grid" id="handball-roster-grid"><div class="adm-loading">A carregar…</div></div></div>
+    <div class="tab-pane" id="handball-coaches"><div class="sec-eyebrow" style="padding-top:32px">Corpo Técnico</div><div class="coaches-grid" id="handball-coaches-grid"></div></div>
+    <div class="tab-pane" id="handball-calendar"><div class="sec-eyebrow" style="padding-top:32px">Calendário</div><table class="tbl"><thead><tr><th>Data</th><th>Jogo</th><th>Competição</th><th>Local</th><th>Resultado</th></tr></thead><tbody id="handball-cal-body"></tbody></table></div>
+    <div class="tab-pane" id="handball-results"><div class="sec-eyebrow" style="padding-top:32px">Resultados</div><div class="stats-grid" id="handball-res-kpis"></div><table class="tbl" style="margin-top:24px"><thead><tr><th>Data</th><th>Jogo</th><th>Resultado</th><th>Competição</th></tr></thead><tbody id="handball-res-body"></tbody></table></div>
+    <div class="tab-pane" id="handball-stats"><div class="sec-eyebrow" style="padding-top:32px">Estatísticas</div><div class="stats-grid" id="handball-stats-grid"></div></div>
+  </div>
+</div>
+
+<div class="page" id="page-basketball">
+  <div class="sp-hero"><div class="sp-hero-bg sp-hero-b"></div><div class="sp-hero-inner" style="padding-top:68px"><span class="sp-hero-icon">🏀</span><h1 class="sp-hero-title">BASQUETEBOL</h1><p class="sp-hero-sub">CD ABC · Temporada 2025/2026</p></div></div>
+  <div class="sp-tabs"><div class="sp-tabs-inner" id="basketball-tabs">
+    <button class="sp-tab active" onclick="switchTab('basketball','roster',this)">Plantel</button>
+    <button class="sp-tab" onclick="switchTab('basketball','coaches',this)">Treinadores</button>
+    <button class="sp-tab" onclick="switchTab('basketball','calendar',this)">Calendário</button>
+    <button class="sp-tab" onclick="switchTab('basketball','results',this)">Resultados</button>
+    <button class="sp-tab" onclick="switchTab('basketball','stats',this)">Estatísticas</button>
+  </div></div>
+  <div class="sp-body">
+    <div class="tab-pane active" id="basketball-roster"><div class="sec-eyebrow" style="padding-top:32px">Plantel 2025/2026</div><div class="roster-grid" id="basketball-roster-grid"><div class="adm-loading">A carregar…</div></div></div>
+    <div class="tab-pane" id="basketball-coaches"><div class="sec-eyebrow" style="padding-top:32px">Corpo Técnico</div><div class="coaches-grid" id="basketball-coaches-grid"></div></div>
+    <div class="tab-pane" id="basketball-calendar"><div class="sec-eyebrow" style="padding-top:32px">Calendário</div><table class="tbl"><thead><tr><th>Data</th><th>Jogo</th><th>Competição</th><th>Local</th><th>Resultado</th></tr></thead><tbody id="basketball-cal-body"></tbody></table></div>
+    <div class="tab-pane" id="basketball-results"><div class="sec-eyebrow" style="padding-top:32px">Resultados</div><div class="stats-grid" id="basketball-res-kpis"></div><table class="tbl" style="margin-top:24px"><thead><tr><th>Data</th><th>Jogo</th><th>Resultado</th><th>Competição</th></tr></thead><tbody id="basketball-res-body"></tbody></table></div>
+    <div class="tab-pane" id="basketball-stats"><div class="sec-eyebrow" style="padding-top:32px">Estatísticas</div><div class="stats-grid" id="basketball-stats-grid"></div></div>
+  </div>
+</div>
+
+<div class="page" id="page-volleyball">
+  <div class="sp-hero"><div class="sp-hero-bg sp-hero-v"></div><div class="sp-hero-inner" style="padding-top:68px"><span class="sp-hero-icon">🏐</span><h1 class="sp-hero-title">VOLEIBOL</h1><p class="sp-hero-sub">CD ABC · Temporada 2025/2026</p></div></div>
+  <div class="sp-tabs"><div class="sp-tabs-inner" id="volleyball-tabs">
+    <button class="sp-tab active" onclick="switchTab('volleyball','roster',this)">Plantel</button>
+    <button class="sp-tab" onclick="switchTab('volleyball','coaches',this)">Treinadores</button>
+    <button class="sp-tab" onclick="switchTab('volleyball','calendar',this)">Calendário</button>
+    <button class="sp-tab" onclick="switchTab('volleyball','results',this)">Resultados</button>
+    <button class="sp-tab" onclick="switchTab('volleyball','stats',this)">Estatísticas</button>
+  </div></div>
+  <div class="sp-body">
+    <div class="tab-pane active" id="volleyball-roster"><div class="sec-eyebrow" style="padding-top:32px">Plantel 2025/2026</div><div class="roster-grid" id="volleyball-roster-grid"><div class="adm-loading">A carregar…</div></div></div>
+    <div class="tab-pane" id="volleyball-coaches"><div class="sec-eyebrow" style="padding-top:32px">Corpo Técnico</div><div class="coaches-grid" id="volleyball-coaches-grid"></div></div>
+    <div class="tab-pane" id="volleyball-calendar"><div class="sec-eyebrow" style="padding-top:32px">Calendário</div><table class="tbl"><thead><tr><th>Data</th><th>Jogo</th><th>Competição</th><th>Local</th><th>Resultado</th></tr></thead><tbody id="volleyball-cal-body"></tbody></table></div>
+    <div class="tab-pane" id="volleyball-results"><div class="sec-eyebrow" style="padding-top:32px">Resultados</div><div class="stats-grid" id="volleyball-res-kpis"></div><table class="tbl" style="margin-top:24px"><thead><tr><th>Data</th><th>Jogo</th><th>Resultado</th><th>Competição</th></tr></thead><tbody id="volleyball-res-body"></tbody></table></div>
+    <div class="tab-pane" id="volleyball-stats"><div class="sec-eyebrow" style="padding-top:32px">Estatísticas</div><div class="stats-grid" id="volleyball-stats-grid"></div></div>
+  </div>
+</div>
+
+<!-- ══ TITLES ══ -->
+<div class="page" id="page-titles"><div class="sec" style="padding-top:108px"><div class="sec-eyebrow">Palmarés</div><h2 class="sec-h">TÍTULOS E CONQUISTAS</h2><p class="sec-p">O historial de vitórias do CD ABC.</p><div class="divider" style="margin:32px 0"></div><div id="titlesFullGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:13px"></div></div></div>
+
+<!-- ══ INTERNATIONAL ══ -->
+<div class="page" id="page-international"><div class="sec" style="padding-top:108px"><div class="sec-eyebrow">Internacionalização</div><h2 class="sec-h">PARTICIPAÇÕES INTERNACIONAIS</h2><p class="sec-p">O CD ABC representando Cabo Verde no mundo.</p><div class="intl-tl" id="intlTimeline"></div></div></div>
+
+<!-- ══ GALLERY ══ -->
+<div class="page" id="page-gallery"><div class="sec" style="padding-top:108px"><div class="news-head"><div><div class="sec-eyebrow">Arquivo Visual</div><h2 class="sec-h">GALERIA</h2></div><button class="btn btn-red" onclick="openAdmin();setTimeout(()=>setAdmSec('media'),340)">+ Adicionar Fotos</button></div><div class="gallery-grid" id="fullGallery" style="grid-template-columns:repeat(4,1fr)"></div></div></div>
+
+<!-- ══ DASHBOARD ══ -->
+<div class="page" id="page-dashboard">
+  <div class="dash-sec"><div class="sec" style="padding-top:108px;padding-bottom:0">
+    <div class="dash-head">
+      <div><div class="sec-eyebrow">Análise em Tempo Real</div><h2 class="sec-h">DASHBOARD</h2></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="dash-status"><div class="sdot"></div><span id="dashLastUpdate">Firebase conectado</span></div>
+        <label class="btn btn-ghost btn-sm" style="cursor:pointer">📊 Importar Excel<input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcel(event)"></label>
+      </div>
+    </div>
+    <div class="dash-grid" id="dashKpis" style="margin-bottom:18px"></div>
+    <div class="dash-grid" id="dashCharts"></div>
+    <div style="margin-top:18px"><div class="dash-card"><div class="dash-title">📋 Próximos Jogos</div><table class="tbl" style="margin-top:0"><thead><tr><th>Data</th><th>Modalidade</th><th>Jogo</th><th>Competição</th><th>Local</th></tr></thead><tbody id="dashUpcoming"></tbody></table></div></div>
+  </div></div>
+</div>
+
+<!-- ══ ADMIN PANEL ══ -->
+<div class="adm-overlay" id="admOverlay">
+  <div class="adm-panel">
+    <button class="adm-close" onclick="closeAdmin()">✕</button>
+    <!-- LOGIN -->
+    <div id="admLogin">
+      <div class="adm-login-wrap">
+        <div class="adm-login-icon">🔐</div>
+        <h2 class="adm-title">PAINEL ADMIN</h2>
+        <p class="adm-sub">Pedro Moeda · pedromoeda@gmail.com</p>
+        <div style="max-width:360px;margin:0 auto">
+          <div class="fg"><label class="fl">Email</label><input type="email" class="fi" id="loginEmail" value="pedromoeda@gmail.com"></div>
+          <div class="fg"><label class="fl">Password</label><input type="password" class="fi" id="loginPass" placeholder="A sua password Firebase"></div>
+          <button class="btn btn-red" style="width:100%" onclick="doLogin()">Entrar</button>
+          <p id="loginErr" style="font-size:11px;color:#EF4444;margin-top:9px;display:none"></p>
+          <p style="font-size:10px;color:var(--g400);margin-top:10px;line-height:1.5">Use o email e password criados no Firebase Console → Authentication</p>
+        </div>
+      </div>
+    </div>
+    <!-- DASHBOARD -->
+    <div id="admDash" style="display:none">
+      <h2 class="adm-title">PAINEL ADMIN</h2>
+      <p class="adm-sub" id="admWelcome">Bem-vindo</p>
+      <div class="adm-nav">
+        <button class="adm-btn active" onclick="setAdmSec('news')">📰 Notícias</button>
+        <button class="adm-btn" onclick="setAdmSec('players')">👤 Jogadores</button>
+        <button class="adm-btn" onclick="setAdmSec('coaches')">🧑‍💼 Treinadores</button>
+        <button class="adm-btn" onclick="setAdmSec('calendar')">📅 Calendário</button>
+        <button class="adm-btn" onclick="setAdmSec('titles')">🏆 Títulos</button>
+        <button class="adm-btn" onclick="setAdmSec('intl')">🌍 Internacional</button>
+        <button class="adm-btn" onclick="setAdmSec('stats')">📊 Estatísticas</button>
+        <button class="adm-btn" onclick="setAdmSec('media')">🖼 Galeria</button>
+        <button class="adm-btn" onclick="setAdmSec('institution')">🏛 Instituição</button>
+        <button class="adm-btn" onclick="setAdmSec('organs')">⚖ Órgãos</button>
+        <button class="adm-btn" style="margin-left:auto;background:rgba(239,68,68,.13);color:#EF4444;border-color:rgba(239,68,68,.28)" onclick="doLogout()">Sair</button>
+      </div>
+
+      <!-- Each admin section injected by JS for brevity, rendered dynamically -->
+      <div id="adm-news" class="adm-sec active"></div>
+      <div id="adm-players" class="adm-sec"></div>
+      <div id="adm-coaches" class="adm-sec"></div>
+      <div id="adm-calendar" class="adm-sec"></div>
+      <div id="adm-titles" class="adm-sec"></div>
+      <div id="adm-intl" class="adm-sec"></div>
+      <div id="adm-stats" class="adm-sec"></div>
+      <div id="adm-media" class="adm-sec"></div>
+      <div id="adm-institution" class="adm-sec"></div>
+      <div id="adm-organs" class="adm-sec"></div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="em-overlay" id="emOverlay">
+  <div class="em-box" id="emBox">
+    <button class="em-close" onclick="closeEM()">✕</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div>
+        <div class="ft-cn">CD ABC</div>
+        <div class="ft-tg">Clube Desportivo ABC</div>
+        <p class="ft-desc">Clube multidesportivo sediado em Praia, ilha de Santiago, Cabo Verde. Andebol, Basquetebol e Voleibol.</p>
+        <div class="ft-social">
+          <a class="soc" href="https://facebook.com" target="_blank">f</a>
+          <a class="soc" href="https://instagram.com" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        </div>
+      </div>
+      <div><div class="ft-col-title">Clube</div><ul class="ft-links"><li><a onclick="go('institution')">🏛 Instituição</a></li><li><a onclick="go('organs')">⚖ Órgãos Eleitos</a></li><li><a onclick="go('titles')">🏆 Palmarés</a></li><li><a onclick="go('international')">🌍 Internacional</a></li></ul></div>
+      <div><div class="ft-col-title">Modalidades</div><ul class="ft-links"><li><a onclick="goSport('handball')">🤾 Andebol</a></li><li><a onclick="goSport('basketball')">🏀 Basquetebol</a></li><li><a onclick="goSport('volleyball')">🏐 Voleibol</a></li><li><a onclick="go('gallery')">🖼 Galeria</a></li></ul></div>
+      <div><div class="ft-col-title">Contacto</div><ul class="ft-links"><li><a>📍 Praia, Santiago, CV</a></li><li><a href="mailto:pedromoeda@gmail.com">✉ pedromoeda@gmail.com</a></li><li><a onclick="go('dashboard')">📊 Dashboard</a></li><li><a onclick="openAdmin()">⚙ Admin</a></li></ul></div>
+    </div>
+    <div class="ft-bot">
+      <div class="ft-copy">© 2025 Clube Desportivo ABC · Praia, Cabo Verde · Todos os direitos reservados</div>
+      <div class="ft-al" onclick="openAdmin()">⚙ Admin: Pedro Moeda</div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════════════
+     FIREBASE SDK (ESM via CDN)
+══════════════════════════════════════════════ -->
+<script type="module">
+// ── IMPORTS ──────────────────────────────────────────────────
+import { initializeApp }           from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, doc, getDocs, getDoc, addDoc,
+         setDoc, updateDoc, deleteDoc, query, orderBy, onSnapshot,
+         serverTimestamp, where }  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getStorage, ref as sRef,
+         uploadBytes, getDownloadURL, deleteObject }
+                                   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+import { getAuth, signInWithEmailAndPassword, signOut,
+         onAuthStateChanged }      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+// ── CONFIG ── Replace with your Firebase project values ──────
+const CFG = {
+  apiKey: "AIzaSyCsreyDwEnF--5SfzO284h_POFgJFO9ArU",
+  authDomain: "cdabc-6c5a4.firebaseapp.com",
+  databaseURL: "https://cdabc-6c5a4-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "cdabc-6c5a4",
+  storageBucket: "cdabc-6c5a4.firebasestorage.app",
+  messagingSenderId: "1000021117660",
+  appId: "1:1000021117660:web:b055f8efa74a54856dc219"
+
+};
+// ─────────────────────────────────────────────────────────────
+
+const app  = initializeApp(CFG);
+const db   = getFirestore(app);
+const stor = getStorage(app);
+const auth = getAuth(app);
+
+// ── STATE ─────────────────────────────────────────────────────
+let user = null;
+let cache = {};          // in-memory cache per collection
+let unsubs = [];         // Firestore listeners to clean up
+
+// ── HELPERS ──────────────────────────────────────────────────
+const $  = id => document.getElementById(id);
+const CE = (tag, cls, html='') => { const el=document.createElement(tag); if(cls)el.className=cls; if(html)el.innerHTML=html; return el; };
+const fmtDate = d => { try { return new Date(d+'T00:00:00').toLocaleDateString('pt-PT',{day:'2-digit',month:'short',year:'numeric'}); } catch(e){ return d||'—'; } };
+const esc = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const toast = (msg, err) => { const t=$('toast'); t.textContent=msg; t.style.borderColor=err?'#EF4444':'var(--red)'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3400); };
+const nowTs = () => serverTimestamp();
+const imgTag = (url, cls, alt='') => url ? `<img src="${esc(url)}" class="${cls}" alt="${esc(alt)}" onerror="this.style.display='none'">` : '';
+const noData = (msg='Sem dados.') => `<p style="color:var(--g400);padding:20px 0;font-family:var(--fc);font-size:12px;letter-spacing:1px">${msg}</p>`;
+
+// ── FIRESTORE CRUD ────────────────────────────────────────────
+async function getAll(col) {
+  const snap = await getDocs(collection(db, col));
+  const rows = snap.docs.map(d => ({id:d.id,...d.data()}));
+  cache[col] = rows;
+  return rows;
+}
+async function getDoc2(col, id) {
+  const s = await getDoc(doc(db, col, id));
+  return s.exists() ? {id:s.id,...s.data()} : null;
+}
+async function addItem(col, data) {
+  return addDoc(collection(db, col), {...data, createdAt:nowTs()});
+}
+async function updateItem(col, id, data) {
+  return updateDoc(doc(db, col, id), {...data, updatedAt:nowTs()});
+}
+async function delItem(col, id) {
+  return deleteDoc(doc(db, col, id));
+}
+async function setItem(col, id, data) {
+  return setDoc(doc(db, col, id), {...data, updatedAt:nowTs()}, {merge:true});
+}
+function listenCol(col, cb) {
+  const u = onSnapshot(collection(db, col), snap => {
+    const rows = snap.docs.map(d => ({id:d.id,...d.data()}));
+    cache[col] = rows;
+    cb(rows);
+  });
+  unsubs.push(u);
+  return u;
+}
+
+// ── PHOTO UPLOAD ──────────────────────────────────────────────
+async function uploadPhoto(path, file) {
+  const r = sRef(stor, path);
+  await uploadBytes(r, file);
+  return getDownloadURL(r);
+}
+
+// ── TEMP UPLOAD STATE ─────────────────────────────────────────
+const tmp = { playerImg:'', coachImg:'', orgImg:'', editImg:'' };
+
+function bindPhotoInput(inputId, previewId, stateKey) {
+  const inp = $(inputId);
+  if (!inp) return;
+  inp.onchange = async e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      tmp[stateKey] = ev.target.result;
+      const pw = $(previewId);
+      if (pw) pw.innerHTML = `<img src="${ev.target.result}" class="pp">`;
+    };
+    reader.readAsDataURL(file);
+  };
+}
+
+async function resolveImg(dataKey, urlInputId, uploadPath) {
+  if (tmp[dataKey]) {
+    // upload base64 blob to Firebase Storage
+    try {
+      const blob = await (await fetch(tmp[dataKey])).blob();
+      const url = await uploadPhoto(uploadPath + Date.now(), blob);
+      tmp[dataKey] = '';
+      return url;
+    } catch(e) { return tmp[dataKey]; }
+  }
+  return $(urlInputId)?.value?.trim() || '';
+}
+
+// ── PAGE NAVIGATION ───────────────────────────────────────────
+function go(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  $('page-' + pageId)?.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  document.querySelectorAll('.nav-links a, .nav-links>li>button:not(.nav-admin)').forEach(l => l.classList.remove('active'));
+  $('nav-' + pageId)?.classList.add('active');
+  renderPage(pageId);
+}
+window.go = go;
+
+function goSport(sp) {
+  go(sp);
+  document.querySelectorAll('#page-' + sp + ' .sp-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  document.querySelectorAll('#page-' + sp + ' .tab-pane').forEach((t,i) => t.classList.toggle('active', i===0));
+  renderSport(sp, 'roster');
+}
+window.goSport = goSport;
+
+function switchTab(sp, tab, btn) {
+  document.querySelectorAll('#page-' + sp + ' .sp-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#page-' + sp + ' .tab-pane').forEach(t => t.classList.remove('active'));
+  $(sp + '-' + tab)?.classList.add('active');
+  renderSport(sp, tab);
+}
+window.switchTab = switchTab;
+
+function renderPage(p) {
+  if (p==='home') renderHome();
+  else if (p==='institution') renderInstitution();
+  else if (p==='organs') renderOrgans();
+  else if (p==='titles') renderTitles();
+  else if (p==='international') renderIntl();
+  else if (p==='gallery') renderGallery();
+  else if (p==='dashboard') renderDash();
+  else if (['handball','basketball','volleyball'].includes(p)) renderSport(p,'roster');
+}
+
+// ── RENDER HOME ───────────────────────────────────────────────
+async function renderHome() {
+  // News
+  const news = await getAll('news');
+  const ng = $('newsGrid');
+  if (ng) {
+    const items = news.sort((a,b)=>(b.date||'')>(a.date||'')?1:-1).slice(0,4);
+    ng.innerHTML = items.length ? items.map((n,i) => `
+      <div class="nc ${i===0?'feat':''}" onclick="window.open('${esc(n.link||'#')}','_blank')">
+        <div class="nc-img">${n.img?`<img src="${esc(n.img)}" alt="${esc(n.title)}" onerror="this.style.display='none'">`:`<div class="nc-placeholder">📰</div>`}</div>
+        <div class="nc-body"><div class="nc-src">${esc(n.source)}</div><div class="nc-title">${esc(n.title)}</div><div class="nc-ex">${esc(n.excerpt)}</div><div class="nc-date">${fmtDate(n.date)}</div></div>
+      </div>`).join('') : noData('Adicione notícias no painel admin.');
+  }
+  // Titles band
+  const titles = await getAll('titles');
+  const tg = $('titlesHome');
+  if (tg) tg.innerHTML = titles.map(t=>`<div class="tc"><div class="tc-icon">${t.icon||'🏆'}</div><div class="tc-n">${t.count||1}×</div><div class="tc-name">${esc(t.name)}</div><div class="tc-sport">${esc(t.sport)} · ${esc(t.years)}</div></div>`).join('') || noData();
+  // KPIs
+  const players = await getAll('players');
+  $('kpi-titles').textContent = titles.reduce((s,t)=>s+(parseInt(t.count)||1),0);
+  $('kpi-players').textContent = players.length;
+  // Gallery preview
+  const media = await getAll('media');
+  renderGalleryGrid('homeGallery', media.slice(0,8), true);
+}
+
+// ── RENDER INSTITUTION ────────────────────────────────────────
+async function renderInstitution() {
+  const inst = await getDoc2('institution','main') || {};
+  $('instLead').textContent = inst.lead || '';
+  // MVV
+  const mvvEl = $('mvvGrid');
+  if (mvvEl) {
+    const blocks = [inst.mission, inst.vision, inst.values].filter(Boolean);
+    mvvEl.innerHTML = blocks.map(b=>`<div class="mvv-card"><div class="mvv-icon">${b.icon||'⭐'}</div><div class="mvv-title">${esc(b.title)}</div><div class="mvv-text">${esc(b.text)}</div></div>`).join('');
+  }
+  // Value cards
+  const vg = $('valGrid');
+  if (vg) vg.innerHTML = (inst.valueCards||[]).map(v=>`<div class="val-card"><div class="val-icon">${v.icon}</div><div class="val-title">${esc(v.title)}</div><div class="val-desc">${esc(v.desc)}</div></div>`).join('');
+  // Timeline
+  const tl = $('instTimeline');
+  if (tl) tl.innerHTML = (inst.milestones||[]).sort((a,b)=>a.year-b.year).map(m=>`<div class="tl-item"><div class="tl-year">${m.year}</div><div class="tl-title">${esc(m.title)}</div><div class="tl-desc">${esc(m.desc)}</div></div>`).join('');
+}
+
+// ── RENDER ORGANS ─────────────────────────────────────────────
+async function renderOrgans() {
+  const org = await getDoc2('organs','main') || {};
+  $('orgIntroEl').textContent = org.intro || '';
+  $('orgMandateEl').textContent = org.mandate ? 'Mandato ' + org.mandate : '';
+  const members = org.members || [];
+  renderOrgGrid('orgDirGrid', members, 'direccao');
+  renderOrgGrid('orgAGGrid',  members, 'assembleia');
+  renderOrgGrid('orgCFGrid',  members, 'fiscal');
+}
+function renderOrgGrid(gridId, members, body) {
+  const g = $(gridId); if (!g) return;
+  const list = members.filter(m => m.body === body);
+  g.innerHTML = list.length ? list.map(m=>`
+    <div class="orc ${m.badge==='badge-pres'?'orc-pres':''}">
+      <div class="orc-photo">${m.img?`<img src="${esc(m.img)}" alt="${esc(m.name)}" onerror="this.parentNode.innerHTML='<div class=orc-placeholder>👤</div>'">`:`<div class="orc-placeholder">👤</div>`}<div class="orc-badge ${m.badge||'bd'}">${esc(m.role)}</div></div>
+      <div class="orc-body"><div class="orc-name">${esc(m.name)}</div><div class="orc-role">${esc(m.role)}</div>${m.contact?`<div class="orc-contact">✉ ${esc(m.contact)}</div>`:''} ${m.bio?`<div class="orc-bio">${esc(m.bio)}</div>`:''}</div>
+    </div>`).join('') : noData('Nenhum membro registado.');
+}
+
+// ── RENDER SPORT PAGES ────────────────────────────────────────
+async function renderSport(sp, tab) {
+  if (tab === 'roster') {
+    const players = (await getAll('players')).filter(p => p.sport === sp);
+    const g = $(sp+'-roster-grid'); if(!g) return;
+    g.innerHTML = players.length ? players.map(p=>`
+      <div class="pc">
+        <div class="pc-img">${p.img?`<img src="${esc(p.img)}" alt="${esc(p.name)}" onerror="this.parentNode.innerHTML='<div class=pc-placeholder>👤</div>'">`:`<div class="pc-placeholder">👤</div>`}<div class="pc-num">${p.number||''}</div></div>
+        <div class="pc-body"><div class="pc-name">${esc(p.name)}</div><div class="pc-pos">${esc(p.pos)}</div>${p.stats?`<div class="pc-stats"><div class="pc-stat-l">${esc(p.stats)}</div></div>`:''}</div>
+      </div>`).join('') : noData('Adicione jogadores no painel admin.');
+  } else if (tab === 'coaches') {
+    const coaches = (await getAll('coaches')).filter(c => c.sport === sp);
+    const g = $(sp+'-coaches-grid'); if(!g) return;
+    g.innerHTML = coaches.length ? coaches.map(c=>`
+      <div class="cc"><div class="cc-av">${c.img?`<img src="${esc(c.img)}" alt="${esc(c.name)}">`:`${(c.name||'?').charAt(0)}`}</div>
+      <div><div class="cc-name">${esc(c.name)}</div><div class="cc-role">${esc(c.role)}</div>${c.info?`<div class="cc-info">${esc(c.info)}</div>`:''}</div></div>`).join('') : noData('Adicione treinadores no painel admin.');
+  } else if (tab === 'calendar') {
+    const matches = (await getAll('matches')).filter(m => m.sport === sp).sort((a,b)=>(a.date||'')>(b.date||'')?1:-1);
+    const b = $(sp+'-cal-body'); if(!b) return;
+    b.innerHTML = matches.length ? matches.map(m=>{
+      const badge = m.status==='pending'?`<span class="rb rp">Agendado</span>`:`<span class="rb r${m.status}">${m.status==='w'?'Vitória':m.status==='l'?'Derrota':'Empate'}</span>`;
+      const sc = m.status!=='pending'?`<span class="sc-num">${m.scoreA}–${m.scoreB}</span>`:'–';
+      return `<tr><td>${fmtDate(m.date)}</td><td><span class="mt">CD ABC <span class="mvs">vs</span>${esc(m.opponent)}</span></td><td>${esc(m.competition)}</td><td>${esc(m.venue)}</td><td>${badge} ${sc}</td></tr>`;
+    }).join('') : '<tr><td colspan="5" style="color:var(--g400);text-align:center;padding:24px">Nenhum jogo agendado.</td></tr>';
+  } else if (tab === 'results') {
+    const matches = (await getAll('matches')).filter(m => m.sport===sp && m.status!=='pending').sort((a,b)=>(a.date||'')>(b.date||'')?-1:1);
+    const kpis = $(sp+'-res-kpis'), b = $(sp+'-res-body');
+    const w=matches.filter(m=>m.status==='w').length, l=matches.filter(m=>m.status==='l').length, tot=matches.length;
+    if(kpis)kpis.innerHTML=`<div class="stc"><div class="stc-val">${tot}</div><div class="stc-lbl">Jogos</div></div><div class="stc"><div class="stc-val" style="color:#22C55E">${w}</div><div class="stc-lbl">Vitórias</div></div><div class="stc"><div class="stc-val" style="color:#EF4444">${l}</div><div class="stc-lbl">Derrotas</div></div><div class="stc"><div class="stc-val">${tot?Math.round(w/tot*100):0}%</div><div class="stc-lbl">Taxa Vitória</div></div>`;
+    if(b)b.innerHTML=matches.length?matches.map(m=>`<tr><td>${fmtDate(m.date)}</td><td><span class="mt">CD ABC <span class="mvs">vs</span>${esc(m.opponent)}</span></td><td><span class="sc-num">${m.scoreA}–${m.scoreB}</span> <span class="rb r${m.status}">${m.status==='w'?'V':m.status==='l'?'D':'E'}</span></td><td>${esc(m.competition)}</td></tr>`).join(''):'<tr><td colspan="4" style="color:var(--g400);text-align:center;padding:24px">Sem resultados.</td></tr>';
+  } else if (tab === 'stats') {
+    const stats = (await getAll('stats')).filter(s => s.sport === sp);
+    const g = $(sp+'-stats-grid'); if(!g) return;
+    g.innerHTML = stats.length ? stats.map(s=>`<div class="stc"><div class="stc-val">${esc(s.value)}</div><div class="stc-lbl">${esc(s.label)}</div>${s.change?`<div class="stc-ch ${s.change.startsWith('+')?'up':'dn'}">${esc(s.change)}</div>`:''}</div>`).join('') : noData('Adicione estatísticas no painel admin.');
+  }
+}
+
+// ── RENDER TITLES ─────────────────────────────────────────────
+async function renderTitles() {
+  const titles = await getAll('titles');
+  const g = $('titlesFullGrid'); if(!g) return;
+  g.innerHTML = titles.sort((a,b)=>b.count-a.count).map(t=>`
+    <div style="background:#111;border:1px solid rgba(255,255,255,.055);border-radius:10px;padding:22px;display:flex;gap:16px;align-items:center;transition:.3s" onmouseover="this.style.borderColor='rgba(208,17,17,.38)'" onmouseout="this.style.borderColor='rgba(255,255,255,.055)'">
+      <div style="font-size:42px;flex-shrink:0">${t.icon||'🏆'}</div>
+      <div><div style="font-family:var(--fc);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:3px">${esc(t.sport)}</div><div style="font-family:var(--fc);font-size:18px;font-weight:700;color:var(--white)">${esc(t.name)}</div><div style="font-family:var(--fd);font-size:34px;color:var(--gold);line-height:1.1">${t.count||1}×</div><div style="font-size:11px;color:var(--g400);margin-top:2px">${esc(t.years)}</div></div>
+    </div>`).join('') || noData('Nenhum título registado.');
+}
+
+// ── RENDER INTERNATIONAL ──────────────────────────────────────
+async function renderIntl() {
+  const intl = await getAll('international');
+  const tl = $('intlTimeline'); if(!tl) return;
+  tl.innerHTML = intl.sort((a,b)=>b.year-a.year).map(i=>`
+    <div class="intl-item"><div class="intl-year">${i.year}</div><div class="intl-title">${esc(i.competition)}</div>
+    <div class="intl-meta">${esc(i.sport)} · ${esc(i.location)}</div><div class="intl-desc">${esc(i.desc)}</div>
+    <span class="intl-result">${esc(i.result)}</span></div>`).join('') || noData('Nenhuma participação registada.');
+}
+
+// ── RENDER GALLERY ────────────────────────────────────────────
+async function renderGallery() {
+  const media = await getAll('media');
+  renderGalleryGrid('fullGallery', media, false);
+}
+function renderGalleryGrid(id, items, limit) {
+  const g = $(id); if(!g) return;
+  const list = limit ? items.slice(0,8) : items;
+  g.innerHTML = list.map((m,i)=>`<div class="gi" style="${i===0&&!limit?'':''}${i===0?'grid-column:span 2;grid-row:span 2':''}" onclick="window.open('${esc(m.url)}','_blank')">
+    <img src="${esc(m.url)}" alt="${esc(m.caption)}" onerror="this.style.display='none'">
+    <div class="gi-ov"><div class="gi-ov-icon">🔍</div></div>
+  </div>`).join('') || noData('Adicione imagens no painel admin.');
+}
+
+// ── RENDER DASHBOARD ──────────────────────────────────────────
+async function renderDash() {
+  const [matches, players, titles] = await Promise.all([getAll('matches'), getAll('players'), getAll('titles')]);
+  const played = matches.filter(m=>m.status!=='pending'), w = played.filter(m=>m.status==='w').length;
+  const kpis = $('dashKpis');
+  if(kpis)kpis.innerHTML=`
+    <div class="dash-card"><div class="dash-title">⚽ Jogos Disputados</div><div class="dash-big">${played.length}</div><div class="dash-sub">${w} vitórias · ${played.length?Math.round(w/played.length*100):0}% win rate</div></div>
+    <div class="dash-card"><div class="dash-title">👤 Total Atletas</div><div class="dash-big">${players.length}</div><div class="dash-sub">3 modalidades ativas</div></div>
+    <div class="dash-card"><div class="dash-title">🏆 Títulos</div><div class="dash-big" style="color:var(--gold)">${titles.reduce((s,t)=>s+(parseInt(t.count)||1),0)}</div><div class="dash-sub">Andebol · Basquetebol · Voleibol</div></div>`;
+  const charts = $('dashCharts');
+  if(charts)charts.innerHTML=['handball','basketball','volleyball'].map((sp,si)=>{
+    const sm=matches.filter(x=>x.sport===sp&&x.status!=='pending'),ww=sm.filter(x=>x.status==='w').length,ll=sm.filter(x=>x.status==='l').length,dd=sm.filter(x=>x.status==='d').length,mx=Math.max(ww,ll,dd,1);
+    return `<div class="dash-card"><div class="dash-title">${['🤾','🏀','🏐'][si]} ${['Andebol','Basquetebol','Voleibol'][si]}</div><div class="bar-chart"><div class="bar" style="height:${Math.max(7,ww/mx*100)}%;background:#22C55E"><span class="bar-lbl" style="color:#22C55E">${ww}V</span></div><div class="bar" style="height:${Math.max(7,dd/mx*100)}%;background:#9CA3AF"><span class="bar-lbl" style="color:#9CA3AF">${dd}E</span></div><div class="bar" style="height:${Math.max(7,ll/mx*100)}%;background:#EF4444"><span class="bar-lbl" style="color:#EF4444">${ll}D</span></div></div><div style="font-size:10px;color:var(--g400)">${sm.length} jogos disputados</div></div>`;
+  }).join('');
+  const upcoming = $('dashUpcoming');
+  const up=matches.filter(m=>m.status==='pending').sort((a,b)=>(a.date||'')>(b.date||'')?1:-1);
+  if(upcoming)upcoming.innerHTML=up.map(m=>`<tr><td>${fmtDate(m.date)}</td><td><span class="tag-r">${m.sport==='handball'?'Andebol':m.sport==='basketball'?'Basquetebol':'Voleibol'}</span></td><td><span class="mt">CD ABC <span class="mvs">vs</span>${esc(m.opponent)}</span></td><td>${esc(m.competition)}</td><td>${esc(m.venue)}</td></tr>`).join('')||'<tr><td colspan="5" style="color:var(--g400);text-align:center;padding:20px">Nenhum jogo agendado.</td></tr>';
+  $('dashLastUpdate').textContent='Actualizado ' + new Date().toLocaleTimeString('pt-PT');
+}
+
+// ═══════════════════════════════════════
+// ADMIN PANEL
+// ═══════════════════════════════════════
+window.openAdmin  = () => $('admOverlay').classList.add('open');
+window.closeAdmin = () => $('admOverlay').classList.remove('open');
+window.toggleMenu = () => $('navLinks').classList.toggle('open');
+window.handleExcel = e => toast('📊 '+e.target.files[0]?.name+' carregado (integração backend necessária para dados reais)');
+
+onAuthStateChanged(auth, u => {
+  user = u;
+  if (u) {
+    $('admLogin').style.display='none';
+    $('admDash').style.display='block';
+    $('admWelcome').textContent = 'Bem-vindo, Pedro Moeda · ' + u.email;
+    renderAdmSec('news');
+  } else {
+    $('admLogin').style.display='block';
+    $('admDash').style.display='none';
+  }
+});
+
+window.doLogin = async () => {
+  const email=$('loginEmail').value, pass=$('loginPass').value;
+  const errEl = $('loginErr');
+  errEl.style.display='none';
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+    toast('✅ Login efectuado');
+  } catch(e) {
+    errEl.textContent = 'Credenciais inválidas. Verifique email e password no Firebase Console.';
+    errEl.style.display='block';
+  }
+};
+window.doLogout = async () => { await signOut(auth); toast('Sessão terminada'); };
+
+window.setAdmSec = id => {
+  document.querySelectorAll('.adm-sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.adm-btn').forEach(b=>b.classList.remove('active'));
+  $('adm-'+id)?.classList.add('active');
+  // mark active nav button
+  document.querySelectorAll('.adm-btn').forEach(b=>{ if(b.textContent.toLowerCase().includes(id.substring(0,4))||b.getAttribute('onclick')?.includes("'"+id+"'"))b.classList.add('active'); });
+  renderAdmSec(id);
+};
+window.setAdmSec = id => {
+  document.querySelectorAll('.adm-sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.adm-btn:not(:last-child)').forEach(b=>b.classList.remove('active'));
+  $('adm-'+id)?.classList.add('active');
+  event?.currentTarget?.classList.add('active');
+  renderAdmSec(id);
+};
+
+function renderAdmSec(id) {
+  const container = $('adm-'+id);
+  if (!container) return;
+  const builders = { news:buildNewsAdm, players:buildPlayersAdm, coaches:buildCoachesAdm, calendar:buildCalendarAdm, titles:buildTitlesAdm, intl:buildIntlAdm, stats:buildStatsAdm, media:buildMediaAdm, institution:buildInstAdm, organs:buildOrgansAdm };
+  builders[id]?.(container);
+}
+
+// ── GENERIC FORM BUILDER HELPERS ─────────────────────────────
+const row2 = inner => `<div class="g2">${inner}</div>`;
+const fgroup = (lbl, inp) => `<div class="fg"><label class="fl">${lbl}</label>${inp}</div>`;
+const finput = (id, ph='', val='', type='text') => `<input type="${type}" class="fi" id="${id}" placeholder="${ph}" value="${esc(val)}">`;
+const fselect = (id, opts, val='') => `<select class="fsel" id="${id}">${opts.map(([v,l])=>`<option value="${v}" ${v===val?'selected':''}>${l}</option>`).join('')}</select>`;
+const ftextarea = (id, ph='', val='') => `<textarea class="fta" id="${id}" placeholder="${ph}">${esc(val)}</textarea>`;
+const photoWidget = (inputId, previewId, stateKey) => `
+  <div class="fg"><label class="fl">Carregar Foto</label>
+    <div class="puw"><input type="file" accept="image/*" id="${inputId}"><div style="font-size:22px;margin-bottom:5px">📷</div><div style="font-family:var(--fc);font-size:11px;color:var(--g400)">Clique ou arraste foto</div></div>
+    <div class="pp-wrap" id="${previewId}"><div class="pp-ph">👤</div></div>
+  </div>`;
+const admTable = (headers, rows) => `<table class="at"><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.length ? rows.join('') : `<tr><td colspan="${headers.length}" style="color:var(--g400);text-align:center;padding:16px">Sem dados</td></tr>`}</tbody></table>`;
+const admThumb = url => url ? `<img src="${esc(url)}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid var(--red)" onerror="this.style.display='none'">` : `<div style="width:28px;height:28px;border-radius:50%;background:#222;display:flex;align-items:center;justify-content:center;font-size:12px">👤</div>`;
+const sportOpts = [['handball','Andebol'],['basketball','Basquetebol'],['volleyball','Voleibol']];
+
+// ── NEWS ADMIN ────────────────────────────────────────────────
+async function buildNewsAdm(el) {
+  const items = await getAll('news');
+  el.innerHTML = `<h3 style="font-family:var(--fd);font-size:24px;margin-bottom:16px">Gerir Notícias</h3>
+  <div class="g2">
+    <div>
+      ${fgroup('Título', finput('n_title','Título da notícia'))}
+      ${fgroup('Fonte', fselect('n_src',[['A Nação (anacao.cv)','A Nação'],['Expresso das Ilhas','Expresso das Ilhas'],['RTC (rtc.cv)','RTC'],['Inforpress','Inforpress'],['Facebook CD ABC','Facebook'],['Instagram CD ABC','Instagram'],['Outro','Outro']]))}
+      ${fgroup('Resumo', ftextarea('n_excerpt','Resumo...'))}
+      ${fgroup('Link', finput('n_link','https://...'))}
+      ${fgroup('Data', finput('n_date','','','date'))}
+      ${fgroup('Imagem (URL)', finput('n_img','https://...'))}
+      <button class="btn btn-red btn-sm" id="saveNewsBtn">+ Adicionar Notícia</button>
+    </div>
+    <div>${admTable(['Título','Fonte','Ações'], items.map(n=>`<tr><td>${esc(n.title?.substring(0,36))}…</td><td style="font-size:10px">${esc(n.source?.substring(0,20))}</td><td><div class="ab"><button class="be" onclick="editNewsItem('${n.id}')">✏</button><button class="bdel" onclick="delNewsItem('${n.id}')">✕</button></div></td></tr>`))}</div>
+  </div>`;
+  $('saveNewsBtn').onclick = async () => {
+    const title = $('n_title').value.trim(); if(!title) return toast('⚠ Título obrigatório',1);
+    await addItem('news', {title,source:$('n_src').value,excerpt:$('n_excerpt').value,link:$('n_link').value,date:$('n_date').value,img:$('n_img').value});
+    toast('✅ Notícia adicionada'); buildNewsAdm(el); renderNews_home();
+  };
+}
+async function renderNews_home() { if($('page-home').classList.contains('active')) renderHome(); }
+window.delNewsItem = async id => { await delItem('news',id); toast('🗑 Removida'); buildNewsAdm($('adm-news')); renderNews_home(); };
+window.editNewsItem = async id => {
+  const n = (await getAll('news')).find(x=>x.id===id); if(!n) return;
+  openEM(`<div class="em-title">Editar Notícia</div>
+    ${fgroup('Título', finput('en_t','',n.title))}
+    ${fgroup('Resumo', ftextarea('en_ex','',n.excerpt))}
+    ${fgroup('Link', finput('en_l','',n.link))}
+    ${fgroup('Imagem URL', finput('en_i','',n.img))}
+    <button class="btn btn-red btn-sm" id="saveEditNews">💾 Guardar</button>`);
+  $('saveEditNews').onclick = async () => {
+    await updateItem('news',id,{title:$('en_t').value,excerpt:$('en_ex').value,link:$('en_l').value,img:$('en_i').value});
+    toast('✅ Atualizado'); closeEM(); buildNewsAdm($('adm-news')); renderNews_home();
+  };
+};
+
+// ── PLAYERS ADMIN ─────────────────────────────────────────────
+async function buildPlayersAdm(el) {
+  const items = await getAll('players');
+  el.innerHTML = `<h3 style="font-family:var(--fd);font-size:24px;margin-bottom:16px">Gerir Jogadores</h3>
+  <div class="g2">
+    <div>
+      ${fgroup('Modalidade', fselect('p_sp',sportOpts))}
+      ${row2(fgroup('Nome',finput('p_nm','Nome completo'))+fgroup('Nº',finput('p_num','10','','number')))}
+      ${row2(fgroup('Posição',finput('p_pos','Pivot, Ala...'))+fgroup('Idade',finput('p_age','22','','number')))}
+      ${photoWidget('p_photo_inp','p_photo_prev','playerImg')}
+      ${fgroup('Ou URL da foto', finput('p_img','https://...'))}
+      ${fgroup('Estatísticas', finput('p_stats','45 golos / 12 jogos'))}
+      <button class="btn btn-red btn-sm" id="savePlayerBtn">+ Adicionar Jogador</button>
+    </div>
+    <div>${admTable(['','Nome','Modal.','Pos.','Ações'], items.map(p=>`<tr><td>${admThumb(p.img)}</td><td>${esc(p.name)}</td><td><span class="tag-r" style="font-size:8px">${p.sport==='handball'?'And':p.sport==='basketball'?'Bas':'Vol'}</span></td><td>${esc(p.pos)}</td><td><div class="ab"><button class="be" onclick="editPlayer('${p.id}')">✏</button><button class="bdel" onclick="delPlayer('${p.id}')">✕</button></div></td></tr>`))}</div>
+  </div>`;
+  bindPhotoInput('p_photo_inp','p_photo_prev','playerImg');
+  $('savePlayerBtn').onclick = async () => {
+    const nm=$('p_nm').value.trim(); if(!nm) return toast('⚠ Nome obrigatório',1);
+    let img = await resolveImg('playerImg','p_img','players/');
+    await addItem('players',{name:nm,sport:$('p_sp').value,number:parseInt($('p_num').value)||0,pos:$('p_pos').value,age:parseInt($('p_age').value)||0,img,stats:$('p_stats').value});
+    toast('✅ Jogador adicionado'); tmp.playerImg=''; buildPlayersAdm(el);
+  };
+}
+window.delPlayer = async id => { await delItem('players',id); toast('🗑 Removido'); buildPlayersAdm($('adm-players')); };
+window.editPlayer = async id => {
+  const p = (await getAll('players')).find(x=>x.id===id); if(!p) return;
+  openEM(`<div class="em-title">Editar Jogador</div>
+    ${row2(fgroup('Nome',finput('ep_nm','',p.name))+fgroup('Nº',finput('ep_num','',p.number,'number')))}
+    ${row2(fgroup('Posição',finput('ep_pos','',p.pos))+fgroup('Idade',finput('ep_age','',p.age,'number')))}
+    ${fgroup('Estatísticas', finput('ep_stats','',p.stats))}
+    ${photoWidget('ep_photo_inp','ep_photo_prev','editImg')}
+    ${p.img?`<div class="pp-wrap"><img src="${esc(p.img)}" class="pp"></div>`:''}
+    ${fgroup('Ou URL nova foto', finput('ep_img','',p.img))}
+    <button class="btn btn-red btn-sm" id="saveEP">💾 Guardar</button>`);
+  bindPhotoInput('ep_photo_inp','ep_photo_prev','editImg');
+  $('saveEP').onclick = async () => {
+    let img = await resolveImg('editImg','ep_img','players/'); if(!img) img=p.img;
+    await updateItem('players',id,{name:$('ep_nm').value,number:parseInt($('ep_num').value)||0,pos:$('ep_pos').value,age:parseInt($('ep_age').value)||0,stats:$('ep_stats').value,img});
+    toast('✅ Atualizado'); closeEM(); buildPlayersAdm($('adm-players'));
+  };
+};
+
+// ── COACHES ADMIN ─────────────────────────────────────────────
+async function buildCoachesAdm(el) {
+  const items = await getAll('coaches');
+  el.innerHTML = `<h3 style="font-family:var(--fd);font-size:24px;margin-bottom:16px">Corpo Técnico</h3>
+  <div class="g2">
+    <div>
+      ${fgroup('Modalidade', fselect('c_sp',sportOpts))}
+      ${fgroup('Nome', finput('c_nm','Nome completo'))}
+      ${fgroup('Cargo', fselect('c_role',[['Treinador Principal','Treinador Principal'],['Treinador Adjunto','Treinador Adjunto'],['Preparador Físico','Preparador Físico'],['Treinador de GR','Treinador de GR'],['Fisioterapeuta','Fisioterapeuta'],['Team Manager','Team Manager']]))}
+      ${fgroup('Info', finput('c_info','Licença, experiência...'))}
+      ${photoWidget('c_photo_inp','c_photo_prev','coachImg')}
+      ${fgroup('Ou URL da foto', finput('c_img','https://...'))}
+      <button class="btn btn-red btn-sm" id="saveCoachBtn">+ Adicionar</button>
+    </div>
+    <div>${admTable(['','Nome','Cargo','Modal.','Ações'], items.map(c=>`<tr><td>${admThumb(c.img)}</td><td>${esc(c.name)}</td><td style="font-size:10px">${esc(c.role)}</td><td style="font-size:9px">${c.sport==='handball'?'And':c.sport==='basketball'?'Bas':'Vol'}</td><td><div class="ab"><button class="be" onclick="editCoach('${c.id}')">✏</button><button class="bdel" onclick="delCoach('${c.id}')">✕</button></div></td></tr>`))}</div>
+  </div>`;
+  bindPhotoInput('c_photo_inp','c_photo_prev','coachImg');
+  $('saveCoachBtn').onclick = async () => {
+    const nm=$('c_nm').value.trim(); if(!nm) return toast('⚠ Nome obrigatório',1);
+    let img = await resolveImg('coachImg','c_img','coaches/');
+    await addItem('coaches',{name:nm,sport:$('c_sp').value,role:$('c_role').value,info:$('c_info').value,img});
+    toast('✅ Adicionado'); tmp.coachImg=''; buildCoachesAdm(el);
+  };
+}
+window.delCoach = async id => { await delItem('coaches',id); toast('🗑 Removido'); buildCoachesAdm($('adm-coaches')); };
+window.editCoach = async id => {
+  const c=(await getAll('coaches')).find(x=>x.id===id); if(!c) return;
+  openEM(`<div class="em-title">Editar Treinador</div>
+    ${fgroup('Nome',finput('ec_nm','',c.name))}
+    ${fgroup('Cargo',finput('ec_role','',c.role))}
+    ${fgroup('Info',finput('ec_info','',c.info))}
+    ${photoWidget('ec_photo_inp','ec_photo_prev','editImg')}
+    ${c.img?`<div class="pp-wrap"><img src="${esc(c.img)}" class="pp"></div>`:''}
+    ${fgroup('Ou URL', finput('ec_img','',c.img))}
+    <button class="btn btn-red btn-sm" id="saveEC">💾 Guardar</button>`);
+  bindPhotoInput('ec_photo_inp','ec_photo_prev','editImg');
+  $('saveEC').onclick = async () => {
+    let img=await resolveImg('editImg','ec_img','coaches/'); if(!img)img=c.img;
+    await updateItem('coaches',id,{name:$('ec_nm').value,role:$('ec_role').value,info:$('ec_info').value,img});
+    toast('✅ Atualizado'); closeEM(); buildCoachesAdm($('adm-coaches'));
+  };
+};
+
+// ── CALENDAR ADMIN ────────────────────────────────────────────
+async function buildCalendarAdm(el) {
+  const items=(await getAll('matches')).sort((a,b)=>(b.date||'')>(a.date||'')?1:-1);
+  el.innerHTML=`<h3 style="font-family:var(--fd);font-size:24px;margin-bottom:16px">Calendário & Resultados</h3>
+  <div class="g2">
+    <div>
+      ${fgroup('Modalidade',fselect('m_sp',sportOpts))}
+      ${row2(fgroup('Data',finput('m_dt','','','date'))+fgroup('Local',finput('m_v','Local...')))}
+      ${fgroup('Adversário',finput('m_opp','Nome do adversário'))}
+      ${fgroup('Competição',finput('m_comp','Campeonato Nacional...'))}
+      ${row2(fgroup('Golos/Pts ABC',finput('m_sa','0','','number'))+fgroup('Golos/Pts Adv.',finput('m_sb','0','','number')))}
+      ${fgroup('Estado',fselect('m_st',[['pending','Agendado'],['w','Vitória'],['d','Empate'],['l','Derrota']]))}
+      <button class="btn btn-red btn-sm" id="saveMatchBtn">+ Adicionar Jogo</button>
+    </div>
+    <div>${admTable(['Data','Adversário','Result.','Ações'],items.map(m=>`<tr><td>${fmtDate(m.date)}</td><td>vs ${esc(m.opponent)}</td><td>${m.status==='pending'?'Agendado':`${m.scoreA}-${m.scoreB}`}</td><td><button class="bdel" onclick="delMatch('${m.id}')">✕</button></td></tr>`))}</div>
+  </div>`;
+  $('saveMatchBtn').onclick=async()=>{
+    const opp=$('m_opp').value.trim(); if(!opp)return toast('⚠ Adversário obrigatório',1);
+    await addItem('matches',{sport:$('m_sp').value,date:$('m_dt').value,venue:$('m_v').value,opponent:opp,competition:$('m_comp').value,scoreA:parseInt($('m_sa').value)||0,scoreB:parseInt($('m_sb').value)||0,status:$('m_st').value});
+    toast('✅ Jogo adicionado'); buildCalendarAdm(el);
+  };
+}
+window.delMatch=async id=>{await delItem('matches',id);toast('🗑 Removido');buildCalendarAdm($('adm-calendar'));};
+
+// ── TITLES ADMIN ──────────────────────────────────────────────
+async function buildTitlesAdm(el) {
+  const items=await getAll('titles');
+  el.innerHTML=`<h3 style="font-family:var(--fd);font-size:24px;margin-bottom:16px">Títulos</h3>
+  <div class="g2">
+    <div>
+      ${fgroup('Modalidade',fselect('t_sp',[['Andebol','Andebol'],['Basquetebol','Basquetebol'],['Voleibol','Voleibol']]))}
+      ${fgroup('Nome do Título',finput('t_nm','Campeonato Nacional'))}
+      ${fgroup('Ano(s)',finput('t_yrs','2022, 2023, 2024'))}
+      ${row2(fgroup('Nº Conquistas',finput('t_cnt','1','','number'))+fgroup('Ícone',finput('t_ic','🏆','🏆')))}
+      <button class="btn btn-red btn-sm" id="saveTitleBtn">+ Adicionar</button>
+    </div>
+    <div>${admTable(['Título','Modal.','Anos','Ações'],items.map(t=>`<tr><td>${t.icon} ${esc(t.name)}</td><td>${esc(t.sport)}</td><td>${esc(t.years)}</td><td><div class="ab"><button class="be" onclick="editTitle('${t.id}')">✏</button><button class="bdel" onclick="delTitle('${t.id}')">✕</button></div></td></tr>`))}</div>
+  </div>`;
+  $('saveTitleBtn').onclick=async()=>{
+    const nm=$('t_nm').value.trim(); if(!nm)return toast('⚠ Nome obrigatório',1);
+    await addItem('titles',{sport:$('t_sp').value,name:nm,years:$('t_yrs').value,count:parseInt($('t_cnt').value)||1,icon:$('t_ic').value||'🏆'});
+    toast('✅ Título adicionado'); buildTitlesAdm(el);
+  };
+}
+window.delTitle=async id=>{await delItem('titles',id);toast('🗑 Removido');buildTitlesAdm($('adm-titles'));};
+window.editTitle=async id=>{
+  const t=(await getAll('titles')).find(x=>x.id===id); if(!t)return;
+  openEM(`<div class="em-title">Editar Título</div>
+    ${fgroup('Nome',finput('et_nm','',t.name))}
+    ${row2(fgroup('Anos',finput('et_yrs','',t.years))+fgroup('Nº',finput('et_cnt','',t.count,'number')))}
+    ${fgroup('Ícone',finput('et_ic','',t.icon))}
+    <button class="btn btn-red btn-sm" id="saveET">💾 Guardar</button>`);
+  $('saveET').onclick=async()=>{await updateItem('titles',id,{name:$('et_nm').value,years:$('et_yrs').value,count:parseInt($('et_cnt').value)||1,icon:$('et_ic').value});toast('✅ Atualizado');closeEM();buildTitlesAdm($('adm-titles'));};
+};
+
+// ── INTL ADMIN ────────────────────────────────────────────────
+async function buildIntlAdm(el) {
+  const items=await getAll('international');
+  el.innerHTML=`<h3 style="font-family:var(--fd);font-size:24px;margin-bottom:16px">Participações Internacionais</h3>
+  <div class="g2">
+    <div>
+      ${row2(fgroup('Ano',finput('i_yr','2024','','number'))+fgroup('Modalidade',fselect('i_sp',[['Andebol','Andebol'],['Basquetebol','Basquetebol'],['Voleibol','Voleibol']])))}
+      ${fgroup('Competição',finput('i_comp','Campeonato Africano...'))}
+      ${fgroup('Local',finput('i_loc','País, Cidade'))}
+      ${fgroup('Resultado',finput('i_res','3º Lugar, Quartos...'))}
+      ${fgroup('Descrição',ftextarea('i_desc','Detalhes...'))}
+      <button class="btn btn-red btn-sm" id="saveIntlBtn">+ Adicionar</button>
+    </div>
+    <div>${admTable(['Ano','Competição','Result.','Ações'],items.sort((a,b)=>b.year-a.year).map(i=>`<tr><td>${i.year}</td><td>${esc(i.competition?.substring(0,28))}…</td><td>${esc(i.result)}</td><td><button class="bdel" onclick="delIntl('${i.id}')">✕</button></td></tr>`))}</div>
+  </div>`;
+  $('saveIntlBtn').onclick=async()=>{
+    const comp=$('i_comp').value.trim(); if(!comp)return toast('⚠ Competição obrigatória',1);
+    await addItem('international',{year:parseInt($('i_yr').value)||new Date().getFullYear(),sport:$('i_sp').value,competition:comp,location:$('i_loc').value,result:$('i_res').value,desc:$('i_desc').value});
+    toast('✅ Adicionado'); buildIntlAdm(el);
+  };
+}
+window.delIntl=async id=>{await delItem('international',id);toast('🗑 Removido');buildIntlAdm($('adm-intl'));};
+
+// ── STATS ADMIN ───────────────────────────────────────────────
+async function buildStatsAdm(el) {
+  const items=await getAll('stats');
+  el.innerHTML=`<h3 style="font-family:var(--fd);font-size:24px;margin-bottom:16px">Estatísticas</h3>
+  <div class="g2">
+    <div>
+      ${fgroup('Modalidade',fselect('s_sp',sportOpts))}
+      ${fgroup('Indicador',finput('s_lbl','Golos Marcados...'))}
+      ${row2(fgroup('Valor',finput('s_val','128'))+fgroup('Variação',finput('s_ch','+12%')))}
+      <button class="btn btn-red btn-sm" id="saveStatBtn">+ Adicionar</button>
+    </div>
+    <div>${admTable(['Indicador','Valor','Modal.','Ações'],items.map(s=>`<tr><td>${esc(s.label)}</td><td>${esc(s.value)}</td><td>${s.sport==='handball'?'And':s.sport==='basketball'?'Bas':'Vol'}</td><td><button class="bdel" onclick="delStat('${s.id}')">✕</button></td></tr>`))}</div>
+  </div>`;
+  $('saveStatBtn').onclick=async()=>{
+    const lbl=$('s_lbl').value.trim(); if(!lbl)return toast('⚠ Indicador obrigatório',1);
+    await addItem('stats',{sport:$('s_sp').value,label:lbl,value:$('s_val').value,change:$('s_ch').value});
+    toast('✅ Adicionado'); buildStatsAdm(el);
+  };
+}
+window.delStat=async id=>{await delItem('stats',id);toast('🗑 Removido');buildStatsAdm($('adm-stats'));};
+
+// ── MEDIA ADMIN ───────────────────────────────────────────────
+async function buildMediaAdm(el) {
+  const items=await getAll('media');
+  el.innerHTML=`<h3 style="font-family:var(--fd);font-size:24px;margin-bottom:16px">Galeria de Imagens</h3>
+  <div class="g2">
+    <div>
+      <div class="fg"><label class="fl">Carregar do Computador (múltiplas)</label>
+        <div class="puw"><input type="file" accept="image/*" multiple id="media_files"><div style="font-size:26px;margin-bottom:7px">📁</div><div style="font-family:var(--fc);font-size:11px;color:var(--g400)">Clique ou arraste imagens</div></div>
+      </div>
+      ${fgroup('Ou URL da Imagem',finput('m_url','https://...'))}
+      ${fgroup('Legenda',finput('m_cap','Legenda...'))}
+      ${fgroup('Categoria',fselect('m_cat',[['Andebol','Andebol'],['Basquetebol','Basquetebol'],['Voleibol','Voleibol'],['Evento','Evento'],['Conquistas','Conquistas'],['Plantel','Plantel']]))}
+      <button class="btn btn-red btn-sm" id="saveMediaBtn">+ Adicionar por URL</button>
+    </div>
+    <div><div class="mig">${items.map(m=>`<div class="mi"><img src="${esc(m.url)}" onerror="this.style.display='none'"><button class="mi-del" onclick="delMedia('${m.id}')">✕</button></div>`).join('')}</div></div>
+  </div>`;
+  // File upload
+  $('media_files').onchange = async e => {
+    for (const file of e.target.files) {
+      try {
+        const url = await uploadPhoto('media/'+Date.now()+'_'+file.name, file);
+        await addItem('media',{url,caption:file.name,category:'Geral'});
+      } catch(err) {
+        // fallback: store as base64
+        const reader=new FileReader();
+        reader.onload=async ev=>{await addItem('media',{url:ev.target.result,caption:file.name,category:'Geral'});};
+        reader.readAsDataURL(file);
+      }
+    }
+    toast('✅ '+e.target.files.length+' imagem(ns) carregada(s)'); buildMediaAdm(el);
+  };
+  $('saveMediaBtn').onclick=async()=>{
+    const url=$('m_url').value.trim(); if(!url)return toast('⚠ URL obrigatória',1);
+    await addItem('media',{url,caption:$('m_cap').value,category:$('m_cat').value});
+    toast('✅ Imagem adicionada'); buildMediaAdm(el);
+  };
+}
+window.delMedia=async id=>{await delItem('media',id);toast('🗑 Removida');buildMediaAdm($('adm-media'));};
+
+// ── INSTITUTION ADMIN ──────────────────────────────────────────
+async function buildInstAdm(el) {
+  const inst=await getDoc2('institution','main')||{};
+  const vcs=inst.valueCards||[];
+  const mls=inst.milestones||[];
+  el.innerHTML=`<h3 style="font-family:var(--fd);font-size:24px;margin-bottom:16px">Página Instituição</h3>
+  ${fgroup('Apresentação (parágrafo principal)',ftextarea('inst_lead','Texto...',inst.lead))}
+  <div class="g3">
+    <div><p style="font-family:var(--fc);font-size:11px;color:var(--red);margin-bottom:9px;letter-spacing:1px">MISSÃO</p>${fgroup('Título',finput('ms_t','MISSÃO',inst.mission?.title))}${fgroup('Ícone',finput('ms_i','🎯',inst.mission?.icon))}${fgroup('Texto',ftextarea('ms_tx','',inst.mission?.text))}</div>
+    <div><p style="font-family:var(--fc);font-size:11px;color:var(--red);margin-bottom:9px;letter-spacing:1px">VISÃO</p>${fgroup('Título',finput('vs_t','VISÃO',inst.vision?.title))}${fgroup('Ícone',finput('vs_i','🔭',inst.vision?.icon))}${fgroup('Texto',ftextarea('vs_tx','',inst.vision?.text))}</div>
+    <div><p style="font-family:var(--fc);font-size:11px;color:var(--red);margin-bottom:9px;letter-spacing:1px">VALORES</p>${fgroup('Título',finput('vl_t','VALORES',inst.values?.title))}${fgroup('Ícone',finput('vl_i','⭐',inst.values?.icon))}${fgroup('Texto',ftextarea('vl_tx','',inst.values?.text))}</div>
+  </div>
+  <button class="btn btn-red btn-sm" id="saveInstMVV" style="margin-bottom:24px">💾 Guardar MVV + Apresentação</button>
+  <p style="font-family:var(--fc);font-size:13px;font-weight:700;color:var(--white);margin-bottom:10px">Valores do Clube</p>
+  <div class="g2">
+    <div>${row2(fgroup('Ícone',finput('vc_ic','🏆'))+fgroup('Nome',finput('vc_nm','Excelência')))}${fgroup('Descrição',finput('vc_desc','Breve descrição...'))} <button class="btn btn-red btn-sm" id="saveVCBtn">+ Adicionar Valor</button></div>
+    <div>${admTable(['Ícone','Nome','Ações'],vcs.map(v=>`<tr><td>${v.icon}</td><td>${esc(v.title)}</td><td><div class="ab"><button class="be" onclick="editVC('${v.id}')">✏</button><button class="bdel" onclick="delVC('${v.id}')">✕</button></div></td></tr>`))}</div>
+  </div>
+  <p style="font-family:var(--fc);font-size:13px;font-weight:700;color:var(--white);margin:20px 0 10px">Marcos Históricos</p>
+  <div class="g2">
+    <div>${row2(fgroup('Ano',finput('ml_yr','1990','','number'))+fgroup('Título',finput('ml_t','Fundação...')))}${fgroup('Descrição',ftextarea('ml_d','Descrição...'))} <button class="btn btn-red btn-sm" id="saveMLBtn">+ Adicionar Marco</button></div>
+    <div>${admTable(['Ano','Título','Ações'],mls.sort((a,b)=>a.year-b.year).map(m=>`<tr><td>${m.year}</td><td>${esc(m.title)}</td><td><div class="ab"><button class="be" onclick="editML('${m.id}')">✏</button><button class="bdel" onclick="delML('${m.id}')">✕</button></div></td></tr>`))}</div>
+  </div>`;
+
+  $('saveInstMVV').onclick=async()=>{
+    await setItem('institution','main',{
+      lead:$('inst_lead').value,
+      mission:{title:$('ms_t').value,icon:$('ms_i').value,text:$('ms_tx').value},
+      vision: {title:$('vs_t').value,icon:$('vs_i').value,text:$('vs_tx').value},
+      values: {title:$('vl_t').value,icon:$('vl_i').value,text:$('vl_tx').value}
+    });
+    delete cache['institution'];
+    toast('✅ Guardado');
+  };
+  $('saveVCBtn').onclick=async()=>{
+    const nm=$('vc_nm').value.trim(); if(!nm)return toast('⚠ Nome obrigatório',1);
+    const inst2=await getDoc2('institution','main')||{};
+    const vcs2=[...(inst2.valueCards||[]),{id:Date.now(),icon:$('vc_ic').value||'⭐',title:nm,desc:$('vc_desc').value}];
+    await setItem('institution','main',{valueCards:vcs2}); delete cache['institution'];
+    toast('✅ Valor adicionado'); buildInstAdm(el);
+  };
+  $('saveMLBtn').onclick=async()=>{
+    const t=$('ml_t').value.trim(); if(!t)return toast('⚠ Título obrigatório',1);
+    const inst2=await getDoc2('institution','main')||{};
+    const mls2=[...(inst2.milestones||[]),{id:Date.now(),year:parseInt($('ml_yr').value)||new Date().getFullYear(),title:t,desc:$('ml_d').value}];
+    await setItem('institution','main',{milestones:mls2}); delete cache['institution'];
+    toast('✅ Marco adicionado'); buildInstAdm(el);
+  };
+}
+window.delVC=async id=>{const i=await getDoc2('institution','main')||{};await setItem('institution','main',{valueCards:(i.valueCards||[]).filter(v=>v.id!==id)});delete cache['institution'];toast('🗑 Removido');buildInstAdm($('adm-institution'));};
+window.delML=async id=>{const i=await getDoc2('institution','main')||{};await setItem('institution','main',{milestones:(i.milestones||[]).filter(m=>m.id!==id)});delete cache['institution'];toast('🗑 Removido');buildInstAdm($('adm-institution'));};
+window.editVC=async id=>{const i=await getDoc2('institution','main')||{};const v=(i.valueCards||[]).find(x=>x.id===id);if(!v)return;openEM(`<div class="em-title">Editar Valor</div>${row2(fgroup('Ícone',finput('evc_i','',v.icon))+fgroup('Nome',finput('evc_n','',v.title)))}${fgroup('Descrição',finput('evc_d','',v.desc))}<button class="btn btn-red btn-sm" id="sEVC">💾 Guardar</button>`);$('sEVC').onclick=async()=>{const i2=await getDoc2('institution','main')||{};const upd=(i2.valueCards||[]).map(x=>x.id===id?{...x,icon:$('evc_i').value,title:$('evc_n').value,desc:$('evc_d').value}:x);await setItem('institution','main',{valueCards:upd});delete cache['institution'];toast('✅ Atualizado');closeEM();buildInstAdm($('adm-institution'));};};
+window.editML=async id=>{const i=await getDoc2('institution','main')||{};const m=(i.milestones||[]).find(x=>x.id===id);if(!m)return;openEM(`<div class="em-title">Editar Marco</div>${row2(fgroup('Ano',finput('eml_y','',m.year,'number'))+fgroup('Título',finput('eml_t','',m.title)))}${fgroup('Descrição',ftextarea('eml_d','',m.desc))}<button class="btn btn-red btn-sm" id="sEML">💾 Guardar</button>`);$('sEML').onclick=async()=>{const i2=await getDoc2('institution','main')||{};const upd=(i2.milestones||[]).map(x=>x.id===id?{...x,year:parseInt($('eml_y').value)||x.year,title:$('eml_t').value,desc:$('eml_d').value}:x);await setItem('institution','main',{milestones:upd});delete cache['institution'];toast('✅ Atualizado');closeEM();buildInstAdm($('adm-institution'));};};
+
+// ── ORGANS ADMIN ──────────────────────────────────────────────
+async function buildOrgansAdm(el) {
+  const org=await getDoc2('organs','main')||{};
+  const mbs=org.members||[];
+  el.innerHTML=`<h3 style="font-family:var(--fd);font-size:24px;margin-bottom:16px">Órgãos Eleitos</h3>
+  ${fgroup('Texto de Introdução',ftextarea('oi_intro','',org.intro))}
+  ${fgroup('Mandato (ex: 2023–2026)',finput('oi_mand','',org.mandate))}
+  <button class="btn btn-red btn-sm" id="saveOrgMeta" style="margin-bottom:24px">💾 Guardar Info Geral</button>
+  <div class="g2">
+    <div>
+      ${fgroup('Órgão',fselect('om_body',[['direccao','Direcção'],['assembleia','Assembleia Geral'],['fiscal','Conselho Fiscal']]))}
+      ${fgroup('Nome',finput('om_nm','Nome completo'))}
+      ${fgroup('Cargo',finput('om_role','Presidente, Secretário...'))}
+      ${fgroup('Insígnia',fselect('om_badge',[['bd','Membro'],['bv','Vice-Presidente'],['bp','Presidente']]))}
+      ${fgroup('Contacto',finput('om_ct','Email ou telefone'))}
+      ${fgroup('Biografia',ftextarea('om_bio','Breve bio...'))}
+      ${photoWidget('om_photo_inp','om_photo_prev','orgImg')}
+      ${fgroup('Ou URL da foto',finput('om_img','https://...'))}
+      <button class="btn btn-red btn-sm" id="saveOrgMember">+ Adicionar Membro</button>
+    </div>
+    <div>${admTable(['','Nome','Cargo','Órgão','Ações'],mbs.map(m=>`<tr><td>${admThumb(m.img)}</td><td>${esc(m.name)}</td><td style="font-size:10px">${esc(m.role)}</td><td style="font-size:9px">${{direccao:'Dir.',assembleia:'A.G.',fiscal:'C.F.'}[m.body]||m.body}</td><td><div class="ab"><button class="be" onclick="editOrgMem(${m.id})">✏</button><button class="bdel" onclick="delOrgMem(${m.id})">✕</button></div></td></tr>`))}</div>
+  </div>`;
+  bindPhotoInput('om_photo_inp','om_photo_prev','orgImg');
+  $('saveOrgMeta').onclick=async()=>{await setItem('organs','main',{intro:$('oi_intro').value,mandate:$('oi_mand').value});delete cache['organs'];toast('✅ Guardado');};
+  $('saveOrgMember').onclick=async()=>{
+    const nm=$('om_nm').value.trim(); if(!nm)return toast('⚠ Nome obrigatório',1);
+    let img=await resolveImg('orgImg','om_img','organs/');
+    const org2=await getDoc2('organs','main')||{};
+    const mbs2=[...(org2.members||[]),{id:Date.now(),body:$('om_body').value,name:nm,role:$('om_role').value,badge:$('om_badge').value,contact:$('om_ct').value,bio:$('om_bio').value,img}];
+    await setItem('organs','main',{members:mbs2}); delete cache['organs'];
+    toast('✅ Membro adicionado'); tmp.orgImg=''; buildOrgansAdm(el);
+  };
+}
+window.delOrgMem=async id=>{const o=await getDoc2('organs','main')||{};await setItem('organs','main',{members:(o.members||[]).filter(m=>m.id!==id)});delete cache['organs'];toast('🗑 Removido');buildOrgansAdm($('adm-organs'));};
+window.editOrgMem=async id=>{
+  const o=await getDoc2('organs','main')||{};const m=(o.members||[]).find(x=>x.id===id);if(!m)return;
+  openEM(`<div class="em-title">Editar Membro</div>
+    ${fgroup('Nome',finput('eo_nm','',m.name))}
+    ${row2(fgroup('Cargo',finput('eo_role','',m.role))+fgroup('Órgão',fselect('eo_body',[['direccao','Direcção'],['assembleia','Assembleia'],['fiscal','C.Fiscal']],m.body)))}
+    ${fgroup('Insígnia',fselect('eo_badge',[['bd','Membro'],['bv','Vice-Presidente'],['bp','Presidente']],m.badge))}
+    ${fgroup('Contacto',finput('eo_ct','',m.contact))}
+    ${fgroup('Bio',ftextarea('eo_bio','',m.bio))}
+    ${photoWidget('eo_photo_inp','eo_photo_prev','editImg')}
+    ${m.img?`<div class="pp-wrap"><img src="${esc(m.img)}" class="pp"></div>`:''}
+    ${fgroup('Ou URL',finput('eo_img','',m.img))}
+    <button class="btn btn-red btn-sm" id="sEOM">💾 Guardar</button>`);
+  bindPhotoInput('eo_photo_inp','eo_photo_prev','editImg');
+  $('sEOM').onclick=async()=>{
+    let img=await resolveImg('editImg','eo_img','organs/'); if(!img)img=m.img;
+    const o2=await getDoc2('organs','main')||{};
+    const upd=(o2.members||[]).map(x=>x.id===id?{...x,name:$('eo_nm').value,role:$('eo_role').value,body:$('eo_body').value,badge:$('eo_badge').value,contact:$('eo_ct').value,bio:$('eo_bio').value,img}:x);
+    await setItem('organs','main',{members:upd}); delete cache['organs'];
+    toast('✅ Atualizado'); closeEM(); buildOrgansAdm($('adm-organs'));
+  };
+};
+
+// ── EDIT MODAL ────────────────────────────────────────────────
+function openEM(html) {
+  $('emBox').innerHTML=`<button class="em-close" onclick="closeEM()">✕</button>${html}`;
+  $('emOverlay').classList.add('open');
+}
+function closeEM() { $('emOverlay').classList.remove('open'); }
+window.closeEM = closeEM;
+window.openEM  = openEM;
+
+// ── CLOSE ON OVERLAY CLICK ────────────────────────────────────
+$('admOverlay').onclick = e => { if(e.target===$('admOverlay')) closeAdmin(); };
+$('emOverlay').onclick  = e => { if(e.target===$('emOverlay'))  closeEM(); };
+
+// ── TOAST ─────────────────────────────────────────────────────
+window.toast = toast;
+
+// ── NAV SCROLL ────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  $('navbar').style.background = window.scrollY>50 ? 'rgba(4,4,4,.98)' : 'rgba(10,10,10,.93)';
+});
+
+// ── INIT ──────────────────────────────────────────────────────
+setTimeout(()=>{
+  $('loadScreen').classList.add('hide');
+  setTimeout(()=>$('loadScreen').style.display='none',520);
+}, 1900);
+
+renderHome();
+</script>
+</body>
+</html>
