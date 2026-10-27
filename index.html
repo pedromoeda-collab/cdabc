@@ -1,1882 +1,281 @@
 <!DOCTYPE html>
 <html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clube Desportivo ABC — Praia, Cabo Verde</title>
-    <meta
-      name="description"
-      content="Website oficial do Clube Desportivo ABC — Andebol, Basquetebol e Voleibol em Praia, Cabo Verde."
-    />
-    <meta name="theme-color" content="#0a0a0a" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Clube Desportivo ABC" />
-    <meta property="og:title" content="Clube Desportivo ABC — Praia, Cabo Verde" />
-    <meta
-      property="og:description"
-      content="Andebol, Basquetebol e Voleibol. Plantéis, calendário, resultados e palmarés do CD ABC."
-    />
-    <meta property="og:url" content="https://pedromoeda-collab.github.io/cdabc/" />
-    <meta property="og:image" content="https://pedromoeda-collab.github.io/cdabc/og-image.jpg" />
-    <meta property="og:locale" content="pt_PT" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Clube Desportivo ABC — Praia, Cabo Verde" />
-    <meta
-      name="twitter:description"
-      content="Andebol, Basquetebol e Voleibol. Plantéis, calendário, resultados e palmarés do CD ABC."
-    />
-    <link rel="canonical" href="https://pedromoeda-collab.github.io/cdabc/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
-    <style>
-      :root {
-        --red: #d01111;
-        --red-dark: #920d0d;
-        --red-soft: #ff2d2d;
-        --white: #ffffff;
-        --black: #0a0a0a;
-        --gold: #c9a227;
-        --gold-soft: #f6d36b;
-        --g100: #f2f2f2;
-        --g200: #e0e0e0;
-        --g400: #9b9b9b;
-        --g700: #444;
-        --g900: #111111;
-        --shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-        --radius: 18px;
-        --container: 1180px;
-        --nav-h: 72px;
-        --fx: 280ms cubic-bezier(0.2, 0.9, 0.2, 1);
-      }
-
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body {
-        margin: 0;
-        font-family: "Barlow", sans-serif;
-        background: var(--black);
-        color: var(--white);
-        overflow-x: hidden;
-      }
-
-      body.is-locked { overflow: hidden; }
-
-      img { display: block; max-width: 100%; }
-      a { color: inherit; }
-      button, input, select, textarea {
-        font: inherit;
-      }
-      button {
-        border: 0;
-        cursor: pointer;
-      }
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
-      }
-
-      ::selection {
-        background: rgba(208, 17, 17, 0.5);
-      }
-
-      .skip-link {
-        position: absolute;
-        left: 16px;
-        top: -60px;
-        background: var(--red);
-        padding: 10px 14px;
-        color: var(--white);
-        border-radius: 8px;
-        z-index: 9999;
-        text-decoration: none;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .skip-link:focus {
-        top: 16px;
-      }
-
-      .container {
-        width: min(var(--container), calc(100% - 32px));
-        margin: 0 auto;
-      }
-
-      .section {
-        padding: 90px 0;
-      }
-
-      .eyebrow {
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 700;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-        font-size: 11px;
-        color: var(--red);
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 12px;
-      }
-
-      .eyebrow::before {
-        content: "";
-        width: 22px;
-        height: 2px;
-        background: var(--red);
-      }
-
-      h1, h2, h3 {
-        margin: 0;
-        font-family: "Bebas Neue", sans-serif;
-        letter-spacing: 0.03em;
-        line-height: 0.9;
-      }
-
-      p {
-        margin: 0;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 13px 24px;
-        border-radius: 8px;
-        border: 1px solid transparent;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 700;
-        font-size: 12px;
-        transition: transform var(--fx), box-shadow var(--fx), border-color var(--fx), background var(--fx), color var(--fx);
-        text-decoration: none;
-      }
-
-      .btn:hover {
-        transform: translateY(-2px);
-      }
-
-      .btn-red {
-        background: linear-gradient(135deg, var(--red), var(--red-soft));
-        color: var(--white);
-        box-shadow: 0 14px 30px rgba(208, 17, 17, 0.22);
-      }
-
-      .btn-red:hover {
-        box-shadow: 0 16px 34px rgba(208, 17, 17, 0.34);
-      }
-
-      .btn-ghost {
-        background: transparent;
-        border-color: rgba(255, 255, 255, 0.26);
-        color: var(--white);
-      }
-
-      .btn-ghost:hover {
-        border-color: rgba(255, 255, 255, 0.8);
-      }
-
-      .site-header {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        background: rgba(10, 10, 10, 0.88);
-        border-bottom: 2px solid rgba(208, 17, 17, 0.9);
-      }
-
-      .nav-shell {
-        width: min(var(--container), calc(100% - 32px));
-        margin: 0 auto;
-        min-height: var(--nav-h);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        background: transparent;
-        color: var(--white);
-        padding: 0;
-      }
-
-      .brand-mark {
-        width: 46px;
-        height: 46px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--red), var(--red-soft));
-        display: grid;
-        place-items: center;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 18px;
-        letter-spacing: 0.08em;
-        box-shadow: 0 0 18px rgba(208, 17, 17, 0.5);
-      }
-
-      .brand-text {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.1;
-      }
-
-      .brand-name {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 1.1rem;
-        letter-spacing: 0.12em;
-      }
-
-      .brand-location {
-        font-family: "Barlow Condensed", sans-serif;
-        font-size: 9px;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: var(--red);
-      }
-
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      .nav-link, .nav-ddm-link, .ft-link {
-        background: transparent;
-        color: var(--g200);
-        font-family: "Barlow Condensed", sans-serif;
-        font-size: 11px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        font-weight: 700;
-        padding: 10px 12px;
-        border-radius: 8px;
-        transition: background var(--fx), color var(--fx), transform var(--fx);
-      }
-
-      .nav-link:hover,
-      .nav-ddm-link:hover,
-      .ft-link:hover,
-      .nav-link.active,
-      .nav-ddm-link.active {
-        background: rgba(255, 255, 255, 0.05);
-        color: var(--white);
-      }
-
-      .nav-admin {
-        background: linear-gradient(135deg, var(--red), var(--red-soft));
-        color: var(--white);
-        border-radius: 8px;
-        padding: 9px 12px;
-        font-size: 11px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 700;
-      }
-
-      .nav-dropdown {
-        position: relative;
-      }
-
-      .nav-ddm {
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 50%;
-        transform: translateX(-50%);
-        min-width: 180px;
-        background: #111111;
-        border: 1px solid rgba(208, 17, 17, 0.36);
-        border-radius: 12px;
-        box-shadow: var(--shadow);
-        display: none;
-        padding: 8px;
-        z-index: 3;
-      }
-
-      .nav-dropdown:hover .nav-ddm,
-      .nav-dropdown:focus-within .nav-ddm {
-        display: block;
-      }
-
-      .nav-ddm-link {
-        display: block;
-        width: 100%;
-        text-align: left;
-        border-radius: 8px;
-      }
-
-      .hamburger {
-        display: none;
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 10px;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 5px;
-      }
-
-      .hamburger span {
-        display: block;
-        width: 18px;
-        height: 2px;
-        border-radius: 2px;
-        background: var(--white);
-      }
-
-      .hero {
-        position: relative;
-        min-height: 710px;
-        display: grid;
-        place-items: center;
-        background:
-          radial-gradient(80% 70% at 68% 50%, rgba(208, 17, 17, 0.2), transparent 55%),
-          radial-gradient(50% 40% at 18% 82%, rgba(208, 17, 17, 0.13), transparent 42%),
-          linear-gradient(180deg, rgba(10,10,10,0.8), rgba(10,10,10,0.96));
-        overflow: hidden;
-      }
-
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 56px,
-          rgba(255,255,255,0.02) 56px,
-          rgba(255,255,255,0.02) 57px
-        );
-      }
-
-      .hero::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 56px,
-          rgba(255,255,255,0.02) 56px,
-          rgba(255,255,255,0.02) 57px
-        );
-      }
-
-      .hero-shell {
-        position: relative;
-        z-index: 1;
-        width: min(var(--container), calc(100% - 32px));
-        margin: 0 auto;
-        padding: 110px 0 60px;
-      }
-
-      .hero-copy {
-        max-width: 620px;
-      }
-
-      .hero-kicker {
-        font-family: "Barlow Condensed", sans-serif;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        color: var(--red);
-        margin-bottom: 18px;
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .hero-kicker::before {
-        content: "";
-        width: 32px;
-        height: 2px;
-        background: var(--red);
-      }
-
-      .hero-title {
-        font-size: clamp(4rem, 8vw, 9.6rem);
-        line-height: 0.85;
-        letter-spacing: 0.03em;
-      }
-
-      .hero-title .accent {
-        color: var(--red);
-      }
-
-      .hero-subtitle {
-        margin-top: 16px;
-        font-size: clamp(0.9rem, 1.7vw, 1.35rem);
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.72);
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 28px;
-      }
-
-      .hero-kpis {
-        position: absolute;
-        right: min(4vw, 80px);
-        bottom: 68px;
-        display: flex;
-        gap: 32px;
-        z-index: 1;
-      }
-
-      .stat-box {
-        text-align: left;
-      }
-
-      .stat-box strong {
-        display: block;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(2.2rem, 3vw, 3.6rem);
-        color: var(--red);
-        line-height: 0.9;
-      }
-
-      .stat-box span {
-        display: block;
-        font-family: "Barlow Condensed", sans-serif;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--g400);
-        margin-top: 4px;
-      }
-
-      .scroll-hint {
-        position: absolute;
-        left: 50%;
-        bottom: 18px;
-        transform: translateX(-50%);
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        gap: 8px;
-        color: var(--g400);
-        font-family: "Barlow Condensed", sans-serif;
-        font-size: 9px;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        animation: floatHint 2.1s ease-in-out infinite;
-      }
-
-      @keyframes floatHint {
-        0%, 100% { transform: translateX(-50%) translateY(0); }
-        50% { transform: translateX(-50%) translateY(8px); }
-      }
-
-      .next-match {
-        width: min(var(--container), calc(100% - 32px));
-        margin: 0 auto -24px;
-        position: relative;
-        z-index: 2;
-      }
-
-      .match-banner {
-        background: linear-gradient(120deg, rgba(208,17,17,0.12), rgba(255,255,255,0.03));
-        border: 1px solid rgba(208,17,17,0.3);
-        border-radius: 14px;
-        padding: 18px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
-        box-shadow: var(--shadow);
-      }
-
-      .match-copy {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-
-      .match-pill {
-        background: rgba(208,17,17,0.12);
-        color: var(--red);
-        border: 1px solid rgba(208,17,17,0.34);
-        padding: 6px 10px;
-        border-radius: 999px;
-        font-size: 10px;
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 700;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-      }
-
-      .match-meta {
-        font-family: "Barlow Condensed", sans-serif;
-        color: var(--white);
-        font-weight: 700;
-        font-size: 15px;
-        letter-spacing: 0.03em;
-      }
-
-      .match-meta small {
-        display: block;
-        margin-top: 2px;
-        color: var(--g400);
-        font-size: 11px;
-        letter-spacing: 0.08em;
-      }
-
-      .match-cta {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 2rem;
-        letter-spacing: 0.06em;
-        color: var(--gold-soft);
-      }
-
-      .sports-row {
-        width: min(var(--container), calc(100% - 32px));
-        margin: 52px auto 0;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 2px;
-        background: rgba(208,17,17,0.14);
-      }
-
-      .sport-card {
-        position: relative;
-        min-height: 360px;
-        padding: 24px;
-        display: flex;
-        align-items: flex-end;
-        isolation: isolate;
-        overflow: hidden;
-        background: #141414;
-        cursor: pointer;
-      }
-
-      .sport-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.9));
-        z-index: 0;
-      }
-
-      .sport-card::after {
-        content: attr(data-emoji);
-        position: absolute;
-        transform: translate(-50%, -50%);
-        top: 48%;
-        left: 50%;
-        font-size: clamp(5rem, 9vw, 8rem);
-        opacity: 0.12;
-        z-index: 0;
-      }
-
-      .sport-card[data-sport="handball"] {
-        background: linear-gradient(135deg, #1d0909, #470d0d);
-      }
-
-      .sport-card[data-sport="basketball"] {
-        background: linear-gradient(135deg, #17140c, #3e240c);
-      }
-
-      .sport-card[data-sport="volleyball"] {
-        background: linear-gradient(135deg, #0a1727, #10315b);
-      }
-
-      .sport-card > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      .sport-card-info {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .sport-card-tag {
-        color: var(--red);
-        font-size: 10px;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 700;
-      }
-
-      .sport-card-name {
-        margin-top: 8px;
-        font-size: clamp(2.2rem, 3vw, 3.2rem);
-      }
-
-      .sport-card-desc {
-        margin-top: 8px;
-        color: rgba(255,255,255,0.72);
-        max-width: 250px;
-        line-height: 1.5;
-      }
-
-      .sport-card-cta {
-        margin-top: 16px;
-        color: var(--red);
-        font-size: 11px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        font-family: "Barlow Condensed", sans-serif;
-        font-weight: 700;
-      }
-
-      .feature-grid,
-      .card-grid,
-      .stats-grid,
-      .gallery-grid,
-      .title-grid {
-        width: min(var(--container), calc(100% - 32px));
-        margin: 0 auto;
-      }
-
-      .news-grid {
-        display: grid;
-        grid-template-columns: 1.7fr 1fr 1fr;
-        gap: 2px;
-        background: rgba(208,17,17,0.08);
-      }
-
-      .news-card {
-        background: #111;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.04);
-      }
-
-      .news-card.featured {
-        grid-column: span 1;
-      }
-
-      .news-image {
-        height: 220px;
-        background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .news-image::before {
-        content: "📰";
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        font-size: 3rem;
-        opacity: 0.2;
-      }
-
-      .news-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .news-body {
-        padding: 20px 18px 18px;
-      }
-
-      .news-source {
-        font-size: 9px;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        font-family: "Barlow Condensed", sans-serif;
-        color: var(--red);
-        margin-bottom: 8px;
-      }
-
-      .news-title {
-        font-size: clamp(1.2rem, 2vw, 2rem);
-        line-height: 1.08;
-        margin-bottom: 8px;
-      }
-
-      .news-excerpt {
-        color: var(--g400);
-        line-height: 1.62;
-        font-size: 0.92rem;
-      }
-
-      .news-date {
-        margin-top: 12px;
-        color: var(--g400);
-        font-size: 0.7rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-
-      .section-head {
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 28px;
-      }
-
-      .section-head h2 {
-        font-size: clamp(2.3rem, 5vw, 4.5rem);
-      }
-
-      .panel {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255,255,255,0.04);
-        border-radius: var(--radius);
-      }
-
-      .title-band {
-        background: linear-gradient(135deg, var(--red-dark), #2d0000);
-        overflow: hidden;
-        position: relative;
-      }
-
-      .title-band::before {
-        content: "ABC";
-        position: absolute;
-        right: -24px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(10rem, 18vw, 20rem);
-        color: rgba(255,255,255,0.04);
-        line-height: 0.7;
-      }
-
-      .title-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 18px;
-        position: relative;
-        z-index: 1;
-      }
-
-      .title-card {
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 16px;
-        padding: 18px 14px 16px;
-        text-align: center;
-      }
-
-      .title-card .icon { font-size: 2rem; }
-      .title-card strong {
-        display: block;
-        margin-top: 10px;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 2.6rem;
-        color: var(--gold-soft);
-      }
-      .title-card span {
-        font-family: "Barlow Condensed", sans-serif;
-        font-size: 10px;
-        color: rgba(255,255,255,0.7);
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-      }
-
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 3px;
-      }
-
-      .gallery-item {
-        position: relative;
-        border: 1px solid rgba(255,255,255,0.04);
-        background: #181818;
-        overflow: hidden;
-        min-height: 180px;
-        cursor: pointer;
-      }
-
-      .gallery-item:first-child {
-        grid-column: span 2;
-        grid-row: span 2;
-      }
-
-      .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 300ms ease, opacity 300ms ease;
-      }
-
-      .gallery-item:hover img {
-        transform: scale(1.04);
-      }
-
-      .gallery-item::after {
-        content: "+";
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        font-size: 2.2rem;
-        color: rgba(255,255,255,0.8);
-        background: rgba(208,17,17,0.18);
-        opacity: 0;
-        transition: opacity 200ms ease;
-      }
-
-      .gallery-item:hover::after {
-        opacity: 1;
-      }
-
-      .about-grid {
-        width: min(var(--container), calc(100% - 32px));
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1.1fr 1fr;
-        gap: 28px;
-        align-items: stretch;
-      }
-
-      .about-box {
-        background: rgba(255,255,255,0.02);
-        border: 1px solid rgba(255,255,255,0.05);
-        border-radius: var(--radius);
-        padding: 28px;
-      }
-      .about-box h2 { font-size: clamp(2.2rem, 4vw, 3.8rem); }
-      .about-box p {
-        color: var(--g200);
-        line-height: 1.75;
-        margin-top: 16px;
-      }
-
-      .metric-boxes {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .metric {
-        background: rgba(208,17,17,0.06);
-        border: 1px solid rgba(208,17,17,0.25);
-        border-radius: 14px;
-        padding: 18px 16px;
-      }
-      .metric strong {
-        display: block;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 2.6rem;
-        color: var(--white);
-      }
-      .metric span {
-        display: block;
-        margin-top: 4px;
-        font-size: 11px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--g400);
-      }
-
-      .history-list {
-        margin-top: 24px;
-        display: grid;
-        gap: 12px;
-      }
-      .history-item {
-        display: grid;
-        grid-template-columns: 90px 1fr;
-        gap: 15px;
-        padding: 12px 0;
-        border-top: 1px solid rgba(255,255,255,0.05);
-      }
-      .history-item:first-child { border-top: none; }
-      .history-item strong {
-        font-family: "Bebas Neue", sans-serif;
-        color: var(--red);
-        font-size: 2rem;
-      }
-      .history-item span {
-        display: block;
-        font-weight: 700;
-        color: var(--white);
-        margin-bottom: 4px;
-      }
-      .history-item p {
-        margin: 0;
-        color: var(--g400);
-        font-size: 0.92rem;
-      }
-
-      .dashboard-wrap {
-        background: rgba(255,255,255,0.02);
-        border: 1px solid rgba(255,255,255,0.05);
-        border-radius: var(--radius);
-        padding: 24px;
-      }
-      .dashboard-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-      }
-      .kpi {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.04);
-        border-radius: 14px;
-        padding: 20px 18px;
-      }
-      .kpi-label {
-        font-family: "Barlow Condensed", sans-serif;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--g400);
-      }
-      .kpi strong {
-        display: block;
-        margin-top: 10px;
-        font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(2.4rem, 4vw, 4rem);
-      }
-      .bars {
-        display: flex;
-        align-items: flex-end;
-        gap: 8px;
-        height: 120px;
-        margin-top: 18px;
-      }
-      .bars span {
-        flex: 1;
-        display: block;
-        background: linear-gradient(180deg, var(--red-soft), var(--red));
-        border-radius: 4px 4px 0 0;
-        min-height: 14px;
-      }
-
-      .footer {
-        background: #050505;
-        border-top: 1px solid rgba(255,255,255,0.04);
-        padding: 50px 0 30px;
-      }
-
-      .footer-grid {
-        width: min(var(--container), calc(100% - 32px));
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1.5fr 1fr 1fr 1fr;
-        gap: 28px;
-      }
-
-      .footer-brand {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-      .footer-brand strong {
-        font-family: "Bebas Neue", sans-serif;
-        letter-spacing: 0.08em;
-        font-size: 2rem;
-      }
-      .footer-brand small {
-        color: var(--red);
-        font-family: "Barlow Condensed", sans-serif;
-        font-size: 10px;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-      }
-      .footer-brand p {
-        color: var(--g400);
-        line-height: 1.7;
-      }
-      .socials {
-        display: flex;
-        gap: 8px;
-        margin-top: 16px;
-      }
-      .soc {
-        width: 36px;
-        height: 36px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 8px;
-        display: grid;
-        place-items: center;
-        color: var(--white);
-        text-decoration: none;
-        font-weight: 700;
-      }
-      .footer-col h4 {
-        font-family: "Barlow Condensed", sans-serif;
-        font-size: 10px;
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-        color: var(--white);
-        margin: 0 0 18px;
-      }
-      .footer-col ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: grid;
-        gap: 10px;
-      }
-      .footer-col a,
-      .footer-col button {
-        background: transparent;
-        color: var(--g400);
-        text-decoration: none;
-        font-size: 0.9rem;
-      }
-      .footer-col a:hover,
-      .footer-col button:hover {
-        color: var(--red);
-      }
-      .footer-bottom {
-        width: min(var(--container), calc(100% - 32px));
-        margin: 26px auto 0;
-        padding-top: 18px;
-        border-top: 1px solid rgba(255,255,255,0.04);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-        flex-wrap: wrap;
-      }
-      .footer-bottom span {
-        color: var(--g400);
-        font-size: 10px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .footer-bottom button {
-        background: transparent;
-        color: var(--g400);
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        font-size: 10px;
-      }
-
-      .adm-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.82);
-        backdrop-filter: blur(12px);
-        display: none;
-        place-items: center;
-        z-index: 2000;
-      }
-      .adm-overlay.open {
-        display: grid;
-      }
-      .adm-panel {
-        width: min(1040px, calc(100% - 28px));
-        max-height: 92vh;
-        overflow: auto;
-        background: #0f0f0f;
-        border: 1px solid rgba(208,17,17,0.28);
-        border-radius: 18px;
-        box-shadow: var(--shadow);
-        padding: 28px 24px 30px;
-        position: relative;
-      }
-      .adm-close {
-        position: absolute;
-        right: 18px;
-        top: 18px;
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.08);
-        color: var(--white);
-      }
-      .adm-close:hover { background: var(--red); }
-      .adm-title {
-        font-size: clamp(2.4rem, 5vw, 4rem);
-        margin-bottom: 6px;
-      }
-      .adm-sub {
-        color: var(--g400);
-        margin-bottom: 24px;
-        letter-spacing: 0.08em;
-      }
-      .login-box {
-        max-width: 360px;
-        margin: 20px auto 0;
-      }
-      .fg {
-        margin-bottom: 14px;
-      }
-      .fl {
-        display: block;
-        color: var(--g400);
-        font-size: 10px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        margin-bottom: 8px;
-      }
-      .fi {
-        width: 100%;
-        border-radius: 8px;
-        border: 1px solid rgba(255,255,255,0.08);
-        background: #171717;
-        padding: 11px 12px;
-        color: var(--white);
-      }
-      .fi:focus {
-        outline: 2px solid rgba(208,17,17,0.6);
-        border-color: var(--red);
-      }
-      .btn-full { width: 100%; }
-      .login-error {
-        min-height: 20px;
-        margin-top: 10px;
-        color: #ff7d7d;
-        font-size: 0.8rem;
-      }
-      .login-note {
-        margin-top: 12px;
-        text-align: center;
-        color: var(--g400);
-        font-size: 0.76rem;
-        line-height: 1.5;
-      }
-      .adm-nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 20px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid rgba(255,255,255,0.04);
-      }
-      .adm-btn {
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.05);
-        color: var(--g400);
-        border-radius: 8px;
-        padding: 8px 10px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        font-size: 10px;
-      }
-      .adm-btn.active {
-        background: var(--red);
-        color: var(--white);
-        border-color: var(--red);
-      }
-      .adm-btn.danger {
-        margin-left: auto;
-        border-color: rgba(239,68,68,0.3);
-        color: #fca5a5;
-      }
-      .adm-section {
-        display: none;
-      }
-      .adm-section.active { display: block; }
-      .adm-empty-state {
-        background: rgba(255,255,255,0.02);
-        border: 1px dashed rgba(255,255,255,0.08);
-        border-radius: 12px;
-        padding: 30px 18px;
-        text-align: center;
-        color: var(--g400);
-      }
-
-      .toast {
-        position: fixed;
-        right: 18px;
-        bottom: 24px;
-        background: #111;
-        border: 1px solid var(--red);
-        color: var(--white);
-        border-radius: 10px;
-        padding: 12px 14px;
-        font-size: 0.8rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        opacity: 0;
-        transform: translateY(12px);
-        pointer-events: none;
-        transition: opacity 200ms ease, transform 200ms ease;
-        z-index: 3000;
-      }
-      .toast.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      @media (max-width: 980px) {
-        .nav-links {
-          position: fixed;
-          inset: var(--nav-h) 0 auto 0;
-          background: rgba(10,10,10,0.97);
-          border-bottom: 1px solid rgba(208,17,17,0.7);
-          padding: 18px 20px;
-          display: none;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 10px;
-        }
-        .nav-links.open {
-          display: flex;
-        }
-        .hamburger { display: flex; }
-        .hero-kpis { display: none; }
-        .news-grid { grid-template-columns: 1fr 1fr; }
-        .footer-grid { grid-template-columns: 1fr 1fr; }
-        .about-grid { grid-template-columns: 1fr; }
-      }
-
-      @media (max-width: 640px) {
-        .sports-row { grid-template-columns: 1fr; }
-        .news-grid { grid-template-columns: 1fr; }
-        .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .gallery-item:first-child { grid-column: span 2; }
-        .dashboard-grid, .metric-boxes, .footer-grid { grid-template-columns: 1fr; }
-        .match-banner { flex-direction: column; align-items: flex-start; }
-        .hero { min-height: 620px; }
-        .section { padding: 70px 0; }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        * { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-      }
-    </style>
-  </head>
-  <body>
-    <a href="#main-content" class="skip-link">Saltar para o conteúdo</a>
-
-    <header class="site-header">
-      <div class="nav-shell">
-        <button class="brand" type="button" data-page="home" aria-label="Ir para o início">
-          <span class="brand-mark">ABC</span>
-          <span class="brand-text">
-            <span class="brand-name">CD ABC</span>
-            <span class="brand-location">Praia · Cabo Verde</span>
-          </span>
-        </button>
-
-        <ul class="nav-links" id="navLinks">
-          <li><button type="button" class="nav-link active" data-page="home">Início</button></li>
-          <li><button type="button" class="nav-link" data-page="institution">Instituição</button></li>
-          <li><button type="button" class="nav-link" data-page="organs">Órgãos</button></li>
-          <li class="nav-dropdown">
-            <button type="button" class="nav-link" aria-expanded="false">Modalidades ▾</button>
-            <div class="nav-ddm">
-              <button type="button" class="nav-ddm-link" data-sport="handball">🤾 Andebol</button>
-              <button type="button" class="nav-ddm-link" data-sport="basketball">🏀 Basquetebol</button>
-              <button type="button" class="nav-ddm-link" data-sport="volleyball">🏐 Voleibol</button>
-            </div>
-          </li>
-          <li><button type="button" class="nav-link" data-page="titles">Títulos</button></li>
-          <li><button type="button" class="nav-link" data-page="international">Internacional</button></li>
-          <li><button type="button" class="nav-link" data-page="gallery">Galeria</button></li>
-          <li><button type="button" class="nav-link" data-page="dashboard">Dashboard</button></li>
-          <li><button type="button" class="nav-admin" data-open-admin>⚙ Admin</button></li>
-        </ul>
-
-        <button class="hamburger" type="button" aria-label="Abrir menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </header>
-
-    <main id="main-content">
-      <section class="hero" id="page-home">
-        <div class="hero-shell">
-          <div class="hero-copy">
-            <div class="hero-kicker">Praia · Santiago · Cabo Verde</div>
-            <h1 class="hero-title">Clube<br /><span class="accent">Desportivo</span><br />ABC</h1>
-            <p class="hero-subtitle">Andebol · Basquetebol · Voleibol</p>
-            <div class="hero-actions">
-              <button type="button" class="btn btn-red" data-page="institution">Conhecer o Clube ›</button>
-              <button type="button" class="btn btn-ghost" data-page="titles">Palmarés</button>
-            </div>
-          </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clube Desportivo ABC — Praia, Cabo Verde</title>
+  <meta name="description" content="Website oficial do Clube Desportivo ABC — Andebol, Basquetebol e Voleibol em Praia, Cabo Verde.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --red:#D01111;--red-dk:#9B0C0C;--red-lt:#FF2828;
+      --white:#FFF;--black:#0A0A0A;--gold:#C9A227;--lgold:#FCF3CF;
+      --g100:#F2F2F2;--g200:#E0E0E0;--g400:#999;--g700:#444;--g900:#111;
+      --lblue:#D6E4F0;--silver:#808B96;
+      --fd:'Bebas Neue',sans-serif;--fc:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;
+      --tr:.28s cubic-bezier(.4,0,.2,1);
+      --sh:0 4px 24px rgba(0,0,0,.15);
+      --shl:0 12px 48px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);background:var(--black);color:var(--white);overflow-x:hidden}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .page{display:none}.page.active{display:block}
+    #loadScreen{position:fixed;inset:0;background:var(--black);z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .5s ease}
+    #loadScreen.hide{opacity:0;pointer-events:none}
+    .load-logo{font-family:var(--fd);font-size:72px;color:var(--red);line-height:1;text-align:center}
+    .load-sub{font-family:var(--fc);font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--g400)}
+    .load-bar{width:200px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+    .load-bar-fill{height:100%;background:var(--red);border-radius:2px;animation:loadfill 1.8s ease forwards}
+    @keyframes loadfill{from{width:0}to{width:100%}}
+    #navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,.93);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:14px 40px}
+    .nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none}
+    .nav-logo-icon{width:44px;height:44px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:18px;color:#fff;flex-shrink:0;box-shadow:0 0 20px rgba(208,17,17,.5)}
+    .nav-logo-text{display:flex;flex-direction:column;line-height:1}
+    .nav-cn{font-family:var(--fd);font-size:18px;color:var(--white);letter-spacing:2px}
+    .nav-cs{font-family:var(--fc);font-size:9px;color:var(--red);letter-spacing:3px;text-transform:uppercase}
+    .nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+    .nav-links a,.nav-links>li>button{font-family:var(--fc);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g400);background:none;border:none;cursor:pointer;padding:10px 12px;border-radius:6px;transition:var(--tr)}
+    .nav-links a:hover,.nav-links>li>button:hover{color:var(--white);background:rgba(255,255,255,.06)}
+    .nav-links a.active,.nav-links>li>button.active{color:var(--red)}
+    .nav-dropdown{position:relative}
+    .nav-ddm{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#0d0d0d;border:1px solid rgba(208,17,17,.3);border-radius:8px;min-width:165px;overflow:hidden;opacity:0;pointer-events:none;transition:var(--tr)}
+    .nav-dropdown:hover .nav-ddm{opacity:1;pointer-events:all}
+    .nav-ddm a{display:block;padding:10px 16px;font-family:var(--fc);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--g400);transition:var(--tr)}
+    .nav-ddm a:hover{color:var(--white);background:rgba(208,17,17,.15)}
+    .nav-admin{margin-left:6px;background:var(--red)!important;color:var(--white)!important;border-radius:6px!important;padding:7px 13px!important}
+    .nav-admin:hover{background:var(--red-dk)!important}
+    .hero{position:relative;height:100vh;min-height:650px;display:flex;align-items:center;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(208,17,17,.22) 0%,transparent 58%),radial-gradient(ellipse at 15% 80%,rgba(208,17,17,.09) 0%,transparent 38%),linear-gradient(135deg,#080808,#151515)}
+    .hero-grid{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(208,17,17,.035) 60px,rgba(208,17,17,.035) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(208,17,17,.035) 60px,rgba(208,17,17,.035) 61px)}
+    .hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:72px 40px 0}
+    .hero-eyebrow{font-family:var(--fc);font-size:11px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:10px;opacity:0;animation:fadeUp .7s .35s ease forwards}
+    .hero-eyebrow::before{content:'';width:32px;height:2px;background:var(--red);display:block}
+    .hero-h1{font-family:var(--fd);font-size:clamp(54px,8.5vw,118px);line-height:.9;color:var(--white);letter-spacing:2px;opacity:0;animation:fadeUp .7s .35s ease forwards}
+    .hero-h1 .r{color:var(--red)}
+    .hero-tagline{font-family:var(--fc);font-size:clamp(13px,1.8vw,20px);font-weight:300;color:var(--g400);letter-spacing:4px;text-transform:uppercase;margin:12px 0 36px;opacity:0;animation:fadeUp .7s .5s ease forwards}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s .65s ease forwards}
+    .btn{font-family:var(--fc);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;padding:13px 30px;border-radius:4px;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+    .btn-red{background:var(--red);color:var(--white)}
+    .btn-red:hover{background:var(--red-lt);transform:translateY(-2px);box-shadow:0 8px 22px rgba(208,17,17,.4)}
+    .btn-ghost{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.28)}
+    .btn-ghost:hover{border-color:var(--white);transform:translateY(-2px)}
+    .hero-kpis{position:absolute;right:40px;bottom:80px;display:flex;gap:32px}
+    .hero-kpi-n{font-family:var(--fd);font-size:50px;color:var(--red);line-height:1}
+    .hero-kpi-l{font-family:var(--fc);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--g400);margin-top:2px}
+    .scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;animation:bounce 2.2s infinite}
+    .scroll-hint span{font-family:var(--fc);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--g400)}
+    @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+    .sports-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(208,17,17,.12)}
+    .sc{position:relative;height:360px;overflow:hidden;cursor:pointer;background:var(--g900)}
+    .sc-bg{position:absolute;inset:0;transition:transform .6s ease}
+    .sc:hover .sc-bg{transform:scale(1.06)}
+    .sc-h .sc-bg{background:linear-gradient(135deg,#1a0808,#3d0f0f)}
+    .sc-b .sc-bg{background:linear-gradient(135deg,#0a0a0a,#1a1008)}
+    .sc-v .sc-bg{background:linear-gradient(135deg,#08101a,#0f2040)}
+    .sc-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);font-size:88px;opacity:.07;transition:var(--tr)}
+    .sc:hover .sc-icon{opacity:.14;transform:translate(-50%,-54%)}
+    .sc-body{position:absolute;bottom:0;left:0;right:0;padding:34px 26px;background:linear-gradient(transparent,rgba(0,0,0,.94))}
+    .sc-tag{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+    .sc-name{font-family:var(--fd);font-size:36px;color:var(--white);line-height:1;margin-bottom:10px}
+    .sc-desc{font-size:12px;color:var(--g400);margin-bottom:14px;line-height:1.5}
+    .sc-cta{font-family:var(--fc);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);display:inline-flex;align-items:center;gap:6px;transition:var(--tr)}
+    .sc-cta:hover{gap:12px}
+    .sec{padding:88px 40px;max-width:1200px;margin:0 auto}
+    .sec-eyebrow{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:9px;display:flex;align-items:center;gap:9px}
+    .sec-eyebrow::before{content:'';width:20px;height:2px;background:var(--red);display:block}
+    .sec-h{font-family:var(--fd);font-size:clamp(34px,5vw,66px);line-height:.95;color:var(--white);margin-bottom:14px;letter-spacing:1px}
+    .sec-p{font-size:15px;line-height:1.72;color:var(--g400);max-width:520px}
+    .news-bg{background:rgba(255,255,255,.018)}
+    .news-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;gap:16px;flex-wrap:wrap}
+    .news-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2px;background:rgba(208,17,17,.07)}
+    .nc{background:#0e0e0e;overflow:hidden;transition:var(--tr);cursor:pointer}
+    .nc:hover{background:#141414}
+    .nc-img{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a1a,#1e1e1e);position:relative;overflow:hidden}
+    .nc-img img{width:100%;height:100%;object-fit:cover;opacity:.72;transition:var(--tr)}
+    .nc:hover .nc-img img{opacity:.9;transform:scale(1.04)}
+    .nc-body{padding:20px}
+    .nc-src{font-family:var(--fc);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+    .nc-title{font-family:var(--fc);font-size:16px;font-weight:700;color:var(--white);line-height:1.3;margin-bottom:8px}
+    .nc.feat .nc-title{font-size:24px}
+    .nc-ex{font-size:12px;color:var(--g400);line-height:1.6}
+    .nc-date{font-family:var(--fc);font-size:9px;color:var(--g400);letter-spacing:1px;margin-top:10px}
+    .titles-band{background:linear-gradient(135deg,var(--red-dk),#3a0000);padding:70px 0;overflow:hidden;position:relative}
+    .titles-band::before{content:'ABC';position:absolute;font-family:var(--fd);font-size:260px;color:rgba(255,255,255,.025);top:50%;right:-40px;transform:translateY(-50%);pointer-events:none}
+    .titles-inner{max-width:1200px;margin:0 auto;padding:0 40px}
+    .titles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:18px;margin-top:40px}
+    .tc{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:22px 18px;text-align:center;transition:var(--tr)}
+    .tc:hover{background:rgba(255,255,255,.13);transform:translateY(-4px)}
+    .tc-icon{font-size:30px;margin-bottom:10px}
+    .tc-n{font-family:var(--fd);font-size:42px;color:var(--gold);line-height:1}
+    .tc-name{font-family:var(--fc);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:4px}
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+    .gi{position:relative;overflow:hidden;cursor:pointer;background:#1a1a1a}
+    .gi:first-child{grid-column:span 2;grid-row:span 2}
+    .gi img{width:100%;height:100%;object-fit:cover;aspect-ratio:1;transition:transform .5s ease;opacity:.8}
+    .gi:first-child img{aspect-ratio:auto}
+    .gi:hover img{transform:scale(1.06);opacity:1}
+    .gi-ov{position:absolute;inset:0;background:rgba(208,17,17,0);transition:var(--tr);display:flex;align-items:center;justify-content:center}
+    .gi:hover .gi-ov{background:rgba(208,17,17,.25)}
+    .gi-ov-icon{font-size:28px;opacity:0;transform:scale(.5);transition:var(--tr)}
+    .gi:hover .gi-ov-icon{opacity:1;transform:scale(1)}
+    footer{background:#050505;border-top:1px solid rgba(255,255,255,.045);padding:52px 40px 32px}
+    .ft-inner{max-width:1200px;margin:0 auto}
+    .ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.055)}
+    .ft-cn{font-family:var(--fd);font-size:28px;color:var(--white);letter-spacing:2px}
+    .ft-tg{font-family:var(--fc);font-size:10px;color:var(--red);letter-spacing:3px;text-transform:uppercase;margin-top:3px}
+    .ft-desc{font-size:12px;color:var(--g400);line-height:1.7;margin-top:12px}
+    .ft-social{display:flex;gap:9px;margin-top:18px}
+    .soc{width:36px;height:36px;border-radius:7px;background:rgba(255,255,255,.048);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--tr)}
+    .soc:hover{background:var(--red);border-color:var(--red);color:var(--white)}
+    .ft-col-title{font-family:var(--fc);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:16px}
+    .ft-links{list-style:none}
+    .ft-links li{margin-bottom:8px}
+    .ft-links a{font-size:12px;color:var(--g400);text-decoration:none;transition:var(--tr);cursor:pointer}
+    .ft-links a:hover{color:var(--red)}
+    .ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:26px;flex-wrap:wrap;gap:12px}
+    .ft-copy{font-family:var(--fc);font-size:10px;color:var(--g400);letter-spacing:1px}
+    @media(max-width:1024px){.news-grid{grid-template-columns:1fr 1fr}.sports-row{grid-template-columns:1fr}.sc{height:270px}.ft-top{grid-template-columns:1fr 1fr}}
+    @media(max-width:768px){#navbar{padding:0 16px}.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:var(--black);border-bottom:1px solid var(--red);padding:16px;z-index:999}.hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px}.hamburger span{width:22px;height:2px;background:var(--white);border-radius:2px}.sec{padding:54px 20px}.news-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:repeat(2,1fr)}.gi:first-child{grid-column:span 2}.hero-kpis{display:none}.ft-top{grid-template-columns:1fr;gap:26px}}
+    .hamburger{display:none}
+  </style>
+</head>
+<body>
+  <div id="loadScreen">
+    <div class="load-logo">CD<br>ABC</div>
+    <div class="load-sub">Clube Desportivo ABC · Praia</div>
+    <div class="load-bar"><div class="load-bar-fill"></div></div>
+  </div>
+
+  <nav id="navbar">
+    <div class="nav-logo" onclick="go('home')">
+      <div class="nav-logo-icon">ABC</div>
+      <div class="nav-logo-text"><span class="nav-cn">CD ABC</span><span class="nav-cs">Praia · Cabo Verde</span></div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a onclick="go('home')" id="nav-home" class="active">Início</a></li>
+      <li><a onclick="go('institution')" id="nav-institution">Instituição</a></li>
+      <li><a onclick="go('organs')" id="nav-organs">Órgãos Eleitos</a></li>
+      <li class="nav-dropdown">
+        <button id="nav-sports">Modalidades ▾</button>
+        <div class="nav-ddm">
+          <a onclick="goSport('handball')">🤾 Andebol</a>
+          <a onclick="goSport('basketball')">🏀 Basquetebol</a>
+          <a onclick="goSport('volleyball')">🏐 Voleibol</a>
         </div>
+      </li>
+      <li><a onclick="go('titles')" id="nav-titles">Títulos</a></li>
+      <li><a onclick="go('international')" id="nav-international">Internacional</a></li>
+      <li><a onclick="go('gallery')" id="nav-gallery">Galeria</a></li>
+      <li><button class="nav-admin" onclick="openAdmin()">⚙ Admin</button></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </nav>
 
-        <div class="hero-kpis" aria-label="Estatísticas do clube">
-          <div class="stat-box">
-            <strong id="kpi-titles">22</strong>
-            <span>Títulos</span>
-          </div>
-          <div class="stat-box">
-            <strong>3</strong>
-            <span>Modalidades</span>
-          </div>
-          <div class="stat-box">
-            <strong id="kpi-players">120</strong>
-            <span>Atletas</span>
-          </div>
-        </div>
-
-        <div class="scroll-hint" aria-hidden="true">
-          <span>Scroll</span>
-          <svg aria-hidden="true" width="18" height="28" viewBox="0 0 20 30" fill="none">
-            <rect x="1" y="1" width="18" height="28" rx="9" stroke="currentColor" stroke-width="1.5"></rect>
-            <circle cx="10" cy="10" r="2.4" fill="currentColor"></circle>
-          </svg>
-        </div>
-      </section>
-
-      <div class="next-match">
-        <div class="match-banner">
-          <div class="match-copy">
-            <span class="match-pill">Próximo jogo</span>
-            <div class="match-meta">
-              CD ABC vs. Sporting da Praia
-              <small>Domingo · 18:00 · Praia</small>
-            </div>
-          </div>
-          <div class="match-cta">Em 2 dias</div>
+  <div class="page active" id="page-home">
+    <section class="hero">
+      <div class="hero-bg"></div><div class="hero-grid"></div>
+      <div class="hero-inner">
+        <div class="hero-eyebrow">Praia · Santiago · Cabo Verde</div>
+        <h1 class="hero-h1">CLUBE<br><span class="r">DESPORTIVO</span><br>ABC</h1>
+        <p class="hero-tagline">Andebol · Basquetebol · Voleibol</p>
+        <div class="hero-btns">
+          <button class="btn btn-red" onclick="go('institution')">Conhecer o Clube ›</button>
+          <button class="btn btn-ghost" onclick="go('titles')">Palmarés</button>
         </div>
       </div>
-
-      <div class="sports-row" aria-label="Modalidades do clube">
-        <article class="sport-card" data-sport="handball" data-emoji="🤾" data-page="handball" tabindex="0" role="button" aria-label="Ir para andebol">
-          <div class="sport-card-info">
-            <span class="sport-card-tag">Modalidade</span>
-            <h2 class="sport-card-name">Andebol</h2>
-            <p class="sport-card-desc">Energia, disciplina e atitude em cada jornada.</p>
-            <span class="sport-card-cta">Ver equipa →</span>
-          </div>
-        </article>
-
-        <article class="sport-card" data-sport="basketball" data-emoji="🏀" data-page="basketball" tabindex="0" role="button" aria-label="Ir para basquetebol">
-          <div class="sport-card-info">
-            <span class="sport-card-tag">Modalidade</span>
-            <h2 class="sport-card-name">Basquetebol</h2>
-            <p class="sport-card-desc">Velocidade e talento em cada posse de bola.</p>
-            <span class="sport-card-cta">Ver equipa →</span>
-          </div>
-        </article>
-
-        <article class="sport-card" data-sport="volleyball" data-emoji="🏐" data-page="volleyball" tabindex="0" role="button" aria-label="Ir para voleibol">
-          <div class="sport-card-info">
-            <span class="sport-card-tag">Modalidade</span>
-            <h2 class="sport-card-name">Voleibol</h2>
-            <p class="sport-card-desc">Precisão, explosão e carácter em cada ponto.</p>
-            <span class="sport-card-cta">Ver equipa →</span>
-          </div>
-        </article>
+      <div class="hero-kpis">
+        <div><div class="hero-kpi-n">22</div><div class="hero-kpi-l">Títulos</div></div>
+        <div><div class="hero-kpi-n">3</div><div class="hero-kpi-l">Modalidades</div></div>
+        <div><div class="hero-kpi-n">120</div><div class="hero-kpi-l">Atletas</div></div>
       </div>
+      <div class="scroll-hint"><span>scroll</span><svg width="17" height="26" viewBox="0 0 20 30" fill="none"><rect x="1" y="1" width="18" height="28" rx="9" stroke="#666" stroke-width="1.5"/><circle cx="10" cy="10" r="2.2" fill="#666"/></svg></div>
+    </section>
 
-      <section class="section">
-        <div class="section-head container">
-          <div>
-            <div class="eyebrow">Atualidade</div>
-            <h2>Notícias</h2>
-          </div>
-          <button type="button" class="btn btn-ghost" data-open-admin>Gerir</button>
-        </div>
-
-        <div class="news-grid" id="newsGrid">
-          <article class="news-card featured">
-            <div class="news-image"><img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?auto=format&fit=crop&w=1200&q=80" alt="Ações do clube em competição" /></div>
-            <div class="news-body">
-              <div class="news-source">ABC News</div>
-              <h3 class="news-title">Clube reforça preparação com nova etapa de treinos intensivos</h3>
-              <p class="news-excerpt">A equipa técnica centra a agenda da semana em ritmo, resistência e dinâmica de conjunto.</p>
-              <div class="news-date">15 de abril de 2026</div>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <div class="news-image"><img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80" alt="Jogadores de basquetebol" /></div>
-            <div class="news-body">
-              <div class="news-source">Basquetebol</div>
-              <h3 class="news-title">Equipa sénior avança com calendário competitivo reforçado</h3>
-              <p class="news-excerpt">Vários ajustes na planificação semanal para preparar a próxima janela.</p>
-              <div class="news-date">11 de abril</div>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <div class="news-image"><img src="https://images.unsplash.com/photo-1521417531038-928ec6b8ef2d?auto=format&fit=crop&w=900&q=80" alt="Jogadores de andebol" /></div>
-            <div class="news-body">
-              <div class="news-source">Andebol</div>
-              <h3 class="news-title">Treinadores destacam progressão coletiva e disciplina defensiva</h3>
-              <p class="news-excerpt">As sessões da semana apontam para maior intensidade e ajustes finais.</p>
-              <div class="news-date">8 de abril</div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section title-band">
-        <div class="title-grid">
-          <div class="title-card">
-            <div class="icon">🏆</div>
-            <strong>12×</strong>
-            <span>Campeonatos</span>
-          </div>
-          <div class="title-card">
-            <div class="icon">🏅</div>
-            <strong>9×</strong>
-            <span>Taças</span>
-          </div>
-          <div class="title-card">
-            <div class="icon">🌍</div>
-            <strong>18</strong>
-            <span>Internacionais</span>
-          </div>
-          <div class="title-card">
-            <div class="icon">📌</div>
-            <strong>3</strong>
-            <span>Modalidades</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="page-institution">
-        <div class="section-head container">
-          <div>
-            <div class="eyebrow">Sobre o Clube</div>
-            <h2>Instituição</h2>
-          </div>
-        </div>
-
-        <div class="about-grid">
-          <div class="about-box">
-            <h2>Uma casa de competitividade, identidade e valor.</h2>
-            <p>
-              O Clube Desportivo ABC nasceu para representar a comunidade desportiva de Praia,
-              impulsionando a excelência em múltiplas modalidades e fortalecendo os laços com a cidade,
-              as escolas, os atletas e os adeptos.
-            </p>
-            <p>
-              A nossa missão é formar jogadores preparados para competir, viver valores de respeito,
-              honestidade e trabalho em equipa e continuar a escrever a história do desporto regional.
-            </p>
-          </div>
-
-          <div class="about-box">
-            <div class="metric-boxes">
-              <div class="metric">
-                <strong>1958</strong>
-                <span>Fundação</span>
-              </div>
-              <div class="metric">
-                <strong>3</strong>
-                <span>Modalidades</span>
-              </div>
-              <div class="metric">
-                <strong>100%</strong>
-                <span>Paixão</span>
-              </div>
-            </div>
-
-            <div class="history-list">
-              <div class="history-item">
-                <strong>1958</strong>
-                <div>
-                  <span>Fundação</span>
-                  <p>O clube nasce com foco no desenvolvimento desportivo e social da cidade.</p>
-                </div>
-              </div>
-              <div class="history-item">
-                <strong>1980</strong>
-                <div>
-                  <span>Expansão</span>
-                  <p>Consolida a presença em andebol, basquetebol e voleibol.</p>
-                </div>
-              </div>
-              <div class="history-item">
-                <strong>2020</strong>
-                <div>
-                  <span>Renovação</span>
-                  <p>Modernização da estrutura e reforço na formação de atletas.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="page-organs">
-        <div class="section-head container">
-          <div>
-            <div class="eyebrow">Estrutura</div>
-            <h2>Órgãos eleitos</h2>
-          </div>
-        </div>
-
-        <div class="about-grid">
-          <div class="about-box">
-            <h2>Direção e governança</h2>
-            <p>
-              A liderança do clube funciona com foco na profissionalização do desempenho desportivo,
-              na transparência e no compromisso com a comunidade e os parceiros institucionais.
-            </p>
-          </div>
-          <div class="about-box">
-            <div class="metric-boxes">
-              <div class="metric">
-                <strong>7</strong>
-                <span>Diretores</span>
-              </div>
-              <div class="metric">
-                <strong>15</strong>
-                <span>Delegados</span>
-              </div>
-              <div class="metric">
-                <strong>3</strong>
-                <span>Comissões</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="page-dashboard">
-        <div class="section-head container">
-          <div>
-            <div class="eyebrow">Análise em tempo real</div>
-            <h2>Dashboard</h2>
-          </div>
-        </div>
-
-        <div class="container">
-          <div class="dashboard-wrap">
-            <div class="dashboard-grid">
-              <div class="kpi">
-                <div class="kpi-label">Vitórias</div>
-                <strong>18</strong>
-              </div>
-              <div class="kpi">
-                <div class="kpi-label">Derrotas</div>
-                <strong>7</strong>
-              </div>
-              <div class="kpi">
-                <div class="kpi-label">Percentagem</div>
-                <strong>72%</strong>
-              </div>
-            </div>
-
-            <div class="bars" aria-label="Gráfico de desempenho">
-              <span style="height: 50%"></span>
-              <span style="height: 75%"></span>
-              <span style="height: 60%"></span>
-              <span style="height: 88%"></span>
-              <span style="height: 94%"></span>
-              <span style="height: 80%"></span>
-              <span style="height: 66%"></span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="page-gallery">
-        <div class="section-head container">
-          <div>
-            <div class="eyebrow">Momentos</div>
-            <h2>Galeria</h2>
-          </div>
-        </div>
-
-        <div class="gallery-grid container">
-          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1200&q=80" alt="Atletas em ação" /></div>
-          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=900&q=80" alt="Jogador a rematar" /></div>
-          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=80" alt="Basquetebol em ação" /></div>
-          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?auto=format&fit=crop&w=900&q=80" alt="Treino em equipa" /></div>
-          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80" alt="Jogo de basquetebol" /></div>
-          <div class="gallery-item"><img src="https://images.unsplash.com/photo-1521417531038-928ec6b8ef2d?auto=format&fit=crop&w=900&q=80" alt="Jogadores de andebol" /></div>
-        </div>
-      </section>
-
-      <section class="section" id="page-titles">
-        <div class="section-head container">
-          <div>
-            <div class="eyebrow">Palmarés</div>
-            <h2>Títulos e conquistas</h2>
-          </div>
-        </div>
-
-        <div class="container">
-          <div class="dashboard-wrap">
-            <div class="history-list">
-              <div class="history-item">
-                <strong>2025</strong>
-                <div><span>Campeonato Nacional</span><p>Vitória decisiva na final nacional de andebol.</p></div>
-              </div>
-              <div class="history-item">
-                <strong>2024</strong>
-                <div><span>Taça de Basquetebol</span><p>Conquista pela equipa sénior em final disputada.</p></div>
-              </div>
-              <div class="history-item">
-                <strong>2023</strong>
-                <div><span>Campeonato de Voleibol</span><p>Trabalho coletivo e consistência marcaram a subida ao topo.</p></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="page-international">
-        <div class="section-head container">
-          <div>
-            <div class="eyebrow">Internacional</div>
-            <h2>Competição externa</h2>
-          </div>
-        </div>
-
-        <div class="container">
-          <div class="dashboard-wrap">
-            <div class="history-list">
-              <div class="history-item">
-                <strong>2026</strong>
-                <div><span>Taça Africana</span><p>Participação em torneio de prestígio em competição regional.</p></div>
-              </div>
-              <div class="history-item">
-                <strong>2024</strong>
-                <div><span>Troféu Internacional</span><p>Encontro internacional em contexto de preparação e visibilidade.</p></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <strong>CD ABC</strong>
-          <small>Clube Desportivo ABC</small>
-          <p>Clube multidesportivo sediado em Praia, ilha de Santiago, Cabo Verde.</p>
-          <div class="socials">
-            <a class="soc" href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
-            <a class="soc" href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">◎</a>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4>Clube</h4>
-          <ul>
-            <li><button type="button" class="ft-link" data-page="institution">Instituição</button></li>
-            <li><button type="button" class="ft-link" data-page="organs">Órgãos</button></li>
-            <li><button type="button" class="ft-link" data-page="titles">Palmarés</button></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Modalidades</h4>
-          <ul>
-            <li><button type="button" class="ft-link" data-sport="handball">Andebol</button></li>
-            <li><button type="button" class="ft-link" data-sport="basketball">Basquetebol</button></li>
-            <li><button type="button" class="ft-link" data-sport="volleyball">Voleibol</button></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Contacto</h4>
-          <ul>
-            <li><a href="mailto:pedromoeda@gmail.com">pedromoeda@gmail.com</a></li>
-            <li><span>Praia, Cabo Verde</span></li>
-            <li><button type="button" class="ft-link" data-open-admin>Admin</button></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span>© 2026 Clube Desportivo ABC</span>
-        <button type="button" data-open-admin>⚙ Admin: Pedro Moeda</button>
-      </div>
-    </footer>
-
-    <div class="adm-overlay" id="admOverlay" aria-hidden="true">
-      <div class="adm-panel" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
-        <button class="adm-close" type="button" data-close-admin aria-label="Fechar painel admin">✕</button>
-
-        <div id="admLogin">
-          <h2 class="adm-title" id="adminTitle">Painel Admin</h2>
-          <p class="adm-sub">Pedro Moeda · pedromoeda@gmail.com</p>
-          <div class="login-box">
-            <div class="fg">
-              <label class="fl" for="loginEmail">Email</label>
-              <input id="loginEmail" class="fi" type="email" value="pedromoeda@gmail.com" />
-            </div>
-            <div class="fg">
-              <label class="fl" for="loginPass">Password</label>
-              <input id="loginPass" class="fi" type="password" placeholder="A sua password Firebase" />
-            </div>
-            <button type="button" class="btn btn-red btn-full" id="loginBtn">Entrar</button>
-            <p id="loginErr" class="login-error" aria-live="polite"></p>
-            <p class="login-note">Use o email e password criados no Firebase Console → Authentication.</p>
-          </div>
-        </div>
-
-        <div id="admDash" style="display:none;">
-          <h2 class="adm-title">Painel Admin</h2>
-          <p class="adm-sub" id="admWelcome">Bem-vindo</p>
-
-          <div class="adm-nav">
-            <button type="button" class="adm-btn active" data-section="news">📰 Notícias</button>
-            <button type="button" class="adm-btn" data-section="players">👤 Jogadores</button>
-            <button type="button" class="adm-btn" data-section="coaches">🧑‍💼 Treinadores</button>
-            <button type="button" class="adm-btn" data-section="calendar">📅 Calendário</button>
-            <button type="button" class="adm-btn" data-section="titles">🏆 Títulos</button>
-            <button type="button" class="adm-btn" data-section="intl">🌍 Internacional</button>
-            <button type="button" class="adm-btn" data-section="media">🖼 Galeria</button>
-            <button type="button" class="adm-btn danger" id="logoutBtn">Sair</button>
-          </div>
-
-          <div class="adm-section active" data-adm-section="news">
-            <div class="adm-empty-state">Secção de notícias pronta para gestão.</div>
-          </div>
-          <div class="adm-section" data-adm-section="players">
-            <div class="adm-empty-state">Secção de jogadores pronta para gestão.</div>
-          </div>
-          <div class="adm-section" data-adm-section="coaches">
-            <div class="adm-empty-state">Secção de treinadores pronta para gestão.</div>
-          </div>
-          <div class="adm-section" data-adm-section="calendar">
-            <div class="adm-empty-state">Secção de calendário pronta para gestão.</div>
-          </div>
-          <div class="adm-section" data-adm-section="titles">
-            <div class="adm-empty-state">Secção de títulos pronta para gestão.</div>
-          </div>
-          <div class="adm-section" data-adm-section="intl">
-            <div class="adm-empty-state">Secção internacional pronta para gestão.</div>
-          </div>
-          <div class="adm-section" data-adm-section="media">
-            <div class="adm-empty-state">Secção de galeria pronta para gestão.</div>
-          </div>
-        </div>
-      </div>
+    <div class="sports-row">
+      <div class="sc sc-h" onclick="goSport('handball')"><div class="sc-bg"></div><div class="sc-icon">🤾</div><div class="sc-body"><div class="sc-tag">Modalidade</div><div class="sc-name">ANDEBOL</div><div class="sc-desc">Energia, disciplina e intensidade em cada jogo.</div><div class="sc-cta">Ver Equipa →</div></div></div>
+      <div class="sc sc-b" onclick="goSport('basketball')"><div class="sc-bg"></div><div class="sc-icon">🏀</div><div class="sc-body"><div class="sc-tag">Modalidade</div><div class="sc-name">BASQUETEBOL</div><div class="sc-desc">Velocidade, técnica e espírito competitivo.</div><div class="sc-cta">Ver Equipa →</div></div></div>
+      <div class="sc sc-v" onclick="goSport('volleyball')"><div class="sc-bg"></div><div class="sc-icon">🏐</div><div class="sc-body"><div class="sc-tag">Modalidade</div><div class="sc-name">VOLEIBOL</div><div class="sc-desc">Precisão, explosão e trabalho em equipa.</div><div class="sc-cta">Ver Equipa →</div></div></div>
     </div>
 
-    <div class="toast" id="toast" aria-live="polite"></div>
+    <div class="news-bg"><div class="sec"><div class="news-head"><div><div class="sec-eyebrow">Atualidade</div><h2 class="sec-h">NOTÍCIAS</h2></div><button class="btn btn-ghost btn-sm" onclick="openAdmin()">Gerir</button></div><div class="news-grid"><div class="nc feat"><div class="nc-img"><img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?auto=format&fit=crop&w=1200&q=80" alt="Clube em ação"></div><div class="nc-body"><div class="nc-src">ABC NEWS</div><div class="nc-title">Clube reforça preparação com nova etapa de treinos intensivos</div><div class="nc-ex">A equipa técnica centra a agenda da semana em ritmo, resistência e dinâmica de conjunto.</div><div class="nc-date">15 abr 2026</div></div></div><div class="nc"><div class="nc-img"><img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80" alt="Basquetebol"></div><div class="nc-body"><div class="nc-src">BASQUETEBOL</div><div class="nc-title">Equipa sénior avança com calendário competitivo reforçado</div><div class="nc-ex">Vários ajustes na planificação semanal para preparar a próxima janela.</div><div class="nc-date">11 abr</div></div></div><div class="nc"><div class="nc-img"><img src="https://images.unsplash.com/photo-1521417531038-928ec6b8ef2d?auto=format&fit=crop&w=900&q=80" alt="Andebol"></div><div class="nc-body"><div class="nc-src">ANDEBOL</div><div class="nc-title">Treinadores destacam progressão coletiva e disciplina defensiva</div><div class="nc-ex">As sessões da semana apontam para maior intensidade e ajustes finais.</div><div class="nc-date">8 abr</div></div></div></div></div></div>
 
-    <script>
-      const toast = (message) => {
-        const el = document.getElementById('toast');
-        if (!el) return;
-        el.textContent = message;
-        el.classList.add('show');
-        clearTimeout(toast.timer);
-        toast.timer = setTimeout(() => el.classList.remove('show'), 2600);
-      };
+    <div class="titles-band"><div class="titles-inner"><div class="sec-eyebrow" style="color:rgba(255,255,255,.5)">Palmarés</div><h2 class="sec-h">TÍTULOS E CONQUISTAS</h2><div class="titles-grid"><div class="tc"><div class="tc-icon">🏆</div><div class="tc-n">12×</div><div class="tc-name">Campeonatos</div></div><div class="tc"><div class="tc-icon">🏅</div><div class="tc-n">9×</div><div class="tc-name">Taças</div></div><div class="tc"><div class="tc-icon">🌍</div><div class="tc-n">18</div><div class="tc-name">Internacionais</div></div><div class="tc"><div class="tc-icon">📌</div><div class="tc-n">3</div><div class="tc-name">Modalidades</div></div></div></div></div>
 
-      const setActivePage = (page) => {
-        document.querySelectorAll('[data-page]').forEach((button) => {
-          button.classList.toggle('active', button.dataset.page === page);
-        });
-        document.querySelectorAll('.page-section').forEach((section) => {
-          section.hidden = section.id !== `page-${page}`;
-        });
-      };
+    <div class="sec"><div class="news-head"><div><div class="sec-eyebrow">Momentos</div><h2 class="sec-h">GALERIA</h2></div><button class="btn btn-ghost btn-sm" onclick="go('gallery')">Ver Tudo →</button></div><div class="gallery-grid"><div class="gi"><img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1200&q=80" alt="Atletas em ação"><div class="gi-ov"><div class="gi-ov-icon">＋</div></div></div><div class="gi"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=900&q=80" alt="Jogador a rematar"><div class="gi-ov"><div class="gi-ov-icon">＋</div></div></div><div class="gi"><img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=80" alt="Basquetebol"><div class="gi-ov"><div class="gi-ov-icon">＋</div></div></div><div class="gi"><img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?auto=format&fit=crop&w=900&q=80" alt="Treino em equipa"><div class="gi-ov"><div class="gi-ov-icon">＋</div></div></div></div></div>
+  </div>
 
-      const openAdmin = () => {
-        document.getElementById('admOverlay').classList.add('open');
-        document.body.classList.add('is-locked');
-      };
+  <div class="page" id="page-institution">
+    <div class="sec" style="padding-top:108px"><div class="sec-eyebrow">Sobre o Clube</div><h2 class="sec-h">INSTITUIÇÃO</h2><p class="sec-p">O Clube Desportivo ABC nasceu para representar a comunidade desportiva de Praia, impulsionando a excelência em múltiplas modalidades e fortalecendo os laços com a cidade, as escolas e os adeptos.</p></div>
+  </div>
 
-      const closeAdmin = () => {
-        document.getElementById('admOverlay').classList.remove('open');
-        document.body.classList.remove('is-locked');
-      };
+  <div class="page" id="page-organs">
+    <div class="sec" style="padding-top:108px"><div class="sec-eyebrow">Estrutura</div><h2 class="sec-h">ÓRGÃOS ELEITOS</h2><p class="sec-p">A liderança do clube funciona com foco na profissionalização do desempenho desportivo, na transparência e no compromisso com a comunidade.</p></div>
+  </div>
 
-      document.addEventListener('click', (event) => {
-        const pageButton = event.target.closest('[data-page]');
-        if (pageButton) {
-          const page = pageButton.dataset.page;
-          if (page) {
-            toast('Página: ' + page);
-            const nav = document.getElementById('navLinks');
-            if (nav && nav.classList.contains('open')) {
-              nav.classList.remove('open');
-            }
-            const hamburger = document.querySelector('.hamburger');
-            if (hamburger) {
-              hamburger.setAttribute('aria-expanded', 'false');
-            }
-            return;
-          }
-        }
+  <div class="page" id="page-handball">
+    <div class="sec" style="padding-top:108px"><div class="sec-eyebrow">Modalidade</div><h2 class="sec-h">ANDEBOL</h2><p class="sec-p">Energia, disciplina e atitude em cada jornada.</p></div>
+  </div>
 
-        const sportButton = event.target.closest('[data-sport]');
-        if (sportButton) {
-          const sport = sportButton.dataset.sport;
-          toast('Modalidade: ' + sport);
-        }
+  <div class="page" id="page-basketball">
+    <div class="sec" style="padding-top:108px"><div class="sec-eyebrow">Modalidade</div><h2 class="sec-h">BASQUETEBOL</h2><p class="sec-p">Velocidade e talento em cada posse de bola.</p></div>
+  </div>
 
-        const openAdminTrigger = event.target.closest('[data-open-admin]');
-        if (openAdminTrigger) {
-          openAdmin();
-          return;
-        }
+  <div class="page" id="page-volleyball">
+    <div class="sec" style="padding-top:108px"><div class="sec-eyebrow">Modalidade</div><h2 class="sec-h">VOLEIBOL</h2><p class="sec-p">Precisão, explosão e eficácia em cada ponto.</p></div>
+  </div>
 
-        const closeAdminTrigger = event.target.closest('[data-close-admin]');
-        if (closeAdminTrigger) {
-          closeAdmin();
-          return;
-        }
+  <div class="page" id="page-titles"><div class="sec" style="padding-top:108px"><div class="sec-eyebrow">Palmarés</div><h2 class="sec-h">TÍTULOS E CONQUISTAS</h2><p class="sec-p">O historial de vitórias e títulos nacionais e internacionais do Clube Desportivo ABC.</p></div></div>
+  <div class="page" id="page-international"><div class="sec" style="padding-top:108px"><div class="sec-eyebrow">Internacionalização</div><h2 class="sec-h">PARTICIPAÇÕES INTERNACIONAIS</h2><p class="sec-p">Competição, presença e representação do clube em desafios continentais e de prestígio.</p></div></div>
+  <div class="page" id="page-gallery"><div class="sec" style="padding-top:108px"><div class="news-head"><div><div class="sec-eyebrow">Arquivo Visual</div><h2 class="sec-h">GALERIA</h2></div></div><div class="gallery-grid"><div class="gi"><img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460?auto=format&fit=crop&w=1200&q=80" alt="Atletas em ação"><div class="gi-ov"><div class="gi-ov-icon">＋</div></div></div><div class="gi"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=900&q=80" alt="Jogador a rematar"><div class="gi-ov"><div class="gi-ov-icon">＋</div></div></div><div class="gi"><img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=80" alt="Basquetebol"><div class="gi-ov"><div class="gi-ov-icon">＋</div></div></div><div class="gi"><img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?auto=format&fit=crop&w=900&q=80" alt="Treino em equipa"><div class="gi-ov"><div class="gi-ov-icon">＋</div></div></div></div></div></div>
+  <div class="page" id="page-dashboard"><div class="sec" style="padding-top:108px"><div class="sec-eyebrow">Análise em Tempo Real</div><h2 class="sec-h">DASHBOARD</h2><p class="sec-p">Resumo geral de resultados, estatísticas e próximos compromissos.</p></div></div>
 
-        if (event.target.matches('.adm-overlay')) {
-          closeAdmin();
-        }
-      });
+  <footer>
+    <div class="ft-inner">
+      <div class="ft-top">
+        <div>
+          <div class="ft-cn">CD ABC</div>
+          <div class="ft-tg">Clube Desportivo ABC</div>
+          <p class="ft-desc">Clube multidesportivo sediado em Praia, ilha de Santiago, Cabo Verde. Andebol, Basquetebol e Voleibol.</p>
+          <div class="ft-social">
+            <a class="soc" href="https://facebook.com" target="_blank">f</a>
+            <a class="soc" href="https://instagram.com" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.764 1.73 4.912 4.912.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.182-1.66 4.764-4.912 4.912-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-3.182-.148-4.764-1.73-4.912-4.912C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.148-3.182 1.73-4.764 4.912-4.912C8.416 2.175 8.796 2.163 12 2.163zm0 2.25c-3.1 0-3.489.012-4.716.067-2.255.103-3.081 1.15-3.184 3.184-.055 1.227-.067 1.616-.067 4.716s.012 3.489.067 4.716c.103 2.034 1.029 3.081 3.184 3.184 1.227.055 1.616.067 4.716.067s3.489-.012 4.716-.067c2.155-.103 3.081-1.15 3.184-3.184.055-1.227.067-1.616.067-4.716s-.012-3.489-.067-4.716c-.103-2.034-1.029-3.081-3.184-3.184C15.489 4.425 15.1 4.413 12 4.413zm0 2.854A5.733 5.733 0 1 1 6.267 13 5.733 5.733 0 0 1 12 7.267zm0 2.25A3.483 3.483 0 1 0 15.483 13 3.483 3.483 0 0 0 12 9.517zm5.456-3.88a1.333 1.333 0 1 1-1.333-1.333 1.333 1.333 0 0 1 1.333 1.333z"/></svg></a>
+          </div>
+        </div>
+        <div><div class="ft-col-title">Clube</div><ul class="ft-links"><li><a onclick="go('institution')">🏛 Instituição</a></li><li><a onclick="go('organs')">⚖ Órgãos Eleitos</a></li><li><a onclick="go('titles')">🏆 Palmarés</a></li></ul></div>
+        <div><div class="ft-col-title">Modalidades</div><ul class="ft-links"><li><a onclick="goSport('handball')">🤾 Andebol</a></li><li><a onclick="goSport('basketball')">🏀 Basquetebol</a></li><li><a onclick="goSport('volleyball')">🏐 Voleibol</a></li></ul></div>
+        <div><div class="ft-col-title">Contacto</div><ul class="ft-links"><li><a>📍 Praia, Santiago, CV</a></li><li><a href="mailto:pedromoeda@gmail.com">✉ pedromoeda@gmail.com</a></li><li><a onclick="openAdmin()">⚙ Admin</a></li></ul></div>
+      </div>
+      <div class="ft-bot"><div class="ft-copy">© 2025 Clube Desportivo ABC · Praia, Cabo Verde · Todos os direitos reservados</div><div class="ft-copy">⚙ Admin: Pedro Moeda</div></div>
+    </div>
+  </footer>
 
-      document.querySelector('.hamburger')?.addEventListener('click', () => {
-        const nav = document.getElementById('navLinks');
-        const open = nav.classList.toggle('open');
-        document.querySelector('.hamburger').setAttribute('aria-expanded', String(open));
-      });
-
-      document.getElementById('loginBtn')?.addEventListener('click', () => {
-        const email = document.getElementById('loginEmail').value.trim();
-        const pass = document.getElementById('loginPass').value.trim();
-        const err = document.getElementById('loginErr');
-
-        if (!email || !pass) {
-          err.textContent = 'Introduz email e password.';
-          return;
-        }
-
-        err.textContent = '';
-        document.getElementById('admLogin').style.display = 'none';
-        document.getElementById('admDash').style.display = 'block';
-        document.getElementById('admWelcome').textContent = 'Bem-vindo, ' + email;
-        toast('Login realizado');
-      });
-
-      document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        document.getElementById('admDash').style.display = 'none';
-        document.getElementById('admLogin').style.display = 'block';
-        document.getElementById('loginPass').value = '';
-        closeAdmin();
-        toast('Sessão encerrada');
-      });
-
-      document.querySelectorAll('.adm-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.adm-btn').forEach((b) => b.classList.remove('active'));
-          btn.classList.add('active');
-        });
-      });
-
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-          closeAdmin();
-        }
-      });
-
-      document.getElementById('ftYear')?.textContent = new Date().getFullYear();
-    </script>
-  </body>
+  <script>
+    const loadScreen = document.getElementById('loadScreen');
+    setTimeout(()=> loadScreen.classList.add('hide'), 500);
+    function go(pageId){
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('page-' + pageId);
+      if(target) target.classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+      document.querySelectorAll('.nav-links a, .nav-links>li>button:not(.nav-admin)').forEach(l => l.classList.remove('active'));
+      const navLink = document.getElementById('nav-' + pageId);
+      if(navLink) navLink.classList.add('active');
+    }
+    function goSport(sp){ go(sp); }
+    function toggleMenu(){
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('open');
+    }
+    function openAdmin(){
+      alert('Admin panel disabled in the reverted version.');
+    }
+  </script>
+</body>
 </html>
